@@ -1,3 +1,6 @@
+mod list;
+mod rust_type;
+
 fn main() {
-    println!("Hello, world!");
+    rust_type::learn_type();
 }
