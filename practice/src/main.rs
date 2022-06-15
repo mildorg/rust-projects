@@ -1,9 +1,10 @@
-mod learn_rust;
-mod list;
-mod rust_type;
-mod rust_variable;
+#![allow(unused_imports)]
+
+use practice::{display, formatting, structures, use_enums};
 
 fn main() {
-    // rust_type::learn_type();
-    learn_rust::guessing_game::guessing();
+    // display::practice_display();
+    // formatting::practice_formatting();
+    // structures::practice_structures();
+    use_enums::practice_enums();
 }
