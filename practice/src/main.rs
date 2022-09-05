@@ -3,8 +3,8 @@
 use practice::{
     aliasing, casting, constants, declare_first, display, formatting, freezing, from_into,
     functions::{self, closures, methods},
-    inference, linked_list, literals, match_control, structures, to_from_string, try_from_into,
-    use_enums,
+    generics, inference, linked_list, literals, match_control, structures, to_from_string,
+    try_from_into, use_enums,
 };
 
 fn main() {
@@ -26,5 +26,6 @@ fn main() {
     // match_control::practice_destructure();
     // functions::learn();
     // methods::learn();
-    closures::learn();
+    // closures::learn();
+    generics::learn();
 }
