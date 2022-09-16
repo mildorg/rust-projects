@@ -3,7 +3,7 @@
 use practice::{
     aliasing, casting, constants, declare_first, display, formatting, freezing, from_into,
     functions::{self, closures, methods},
-    generics, inference, linked_list, literals, match_control, structures, to_from_string,
+    generics, inference, linked_list, literals, match_control, scoping, structures, to_from_string,
     try_from_into, use_enums,
 };
 
@@ -27,5 +27,6 @@ fn main() {
     // functions::learn();
     // methods::learn();
     // closures::learn();
-    generics::learn();
+    // generics::learn();
+    scoping::learn();
 }
