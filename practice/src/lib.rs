@@ -6,6 +6,7 @@ pub mod functions;
 pub mod generics;
 pub mod hello_world;
 pub mod scoping;
+pub mod traits;
 pub mod types;
 pub mod variable_binding;
 

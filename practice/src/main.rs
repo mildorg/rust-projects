@@ -4,7 +4,7 @@ use practice::{
     aliasing, casting, constants, declare_first, display, formatting, freezing, from_into,
     functions::{self, closures, methods},
     generics, inference, linked_list, literals, match_control, scoping, structures, to_from_string,
-    try_from_into, use_enums,
+    traits, try_from_into, use_enums,
 };
 
 fn main() {
@@ -28,5 +28,6 @@ fn main() {
     // methods::learn();
     // closures::learn();
     // generics::learn();
-    scoping::learn();
+    // scoping::learn();
+    traits::learn();
 }
