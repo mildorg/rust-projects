@@ -5,10 +5,12 @@ pub mod flow_control;
 pub mod functions;
 pub mod generics;
 pub mod hello_world;
+pub mod macro_rules;
 pub mod scoping;
 pub mod traits;
 pub mod types;
 pub mod variable_binding;
+pub mod error_handling;
 
 pub use self::conversion::{from_into, to_from_string, try_from_into};
 pub use self::custom_types::structures;
