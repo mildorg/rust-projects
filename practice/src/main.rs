@@ -4,8 +4,8 @@ use practice::{
     aliasing, casting, constants, declare_first, display, error_handling, formatting, freezing,
     from_into,
     functions::{self, closures, methods},
-    generics, inference, linked_list, literals, macro_rules, match_control, scoping, structures,
-    to_from_string, traits, try_from_into, use_enums,
+    generics, inference, linked_list, literals, macro_rules, match_control, scoping, stb_lib_types,
+    structures, to_from_string, traits, try_from_into, use_enums,
 };
 
 fn main() {
@@ -32,5 +32,6 @@ fn main() {
     // scoping::learn();
     // traits::learn();
     // macro_rules::learn();
-    error_handling::learn();
+    // error_handling::learn();
+    stb_lib_types::learn();
 }
