@@ -9,6 +9,8 @@ pub mod hello_world;
 pub mod macro_rules;
 pub mod scoping;
 pub mod stb_lib_types;
+pub mod stb_misc;
+pub mod testing;
 pub mod traits;
 pub mod types;
 pub mod variable_binding;
