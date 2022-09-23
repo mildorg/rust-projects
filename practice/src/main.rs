@@ -5,7 +5,7 @@ use practice::{
     from_into,
     functions::{self, closures, methods},
     generics, inference, linked_list, literals, macro_rules, match_control, scoping, stb_lib_types,
-    stb_misc, structures, to_from_string, traits, try_from_into, use_enums,
+    stb_misc, structures, to_from_string, traits, try_from_into, unsafe_operations, use_enums,
 };
 
 fn main() {
@@ -35,4 +35,5 @@ fn main() {
     // error_handling::learn();
     // stb_lib_types::learn();
     // stb_misc::learn();
+    unsafe_operations::learn();
 }

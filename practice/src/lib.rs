@@ -14,6 +14,7 @@ pub mod testing;
 pub mod traits;
 pub mod types;
 pub mod variable_binding;
+pub mod unsafe_operations;
 
 pub use self::conversion::{from_into, to_from_string, try_from_into};
 pub use self::custom_types::structures;
