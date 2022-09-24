@@ -1,0 +1,18 @@
+* {
+  font-size: 1rem;
+}
+
+.my_title {
+  color: darkmagenta;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ul li {
+  font-size: 1rem;
+  list-style: none;
+  color: green;
+  height: 1.5rem;
+}

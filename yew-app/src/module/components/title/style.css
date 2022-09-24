@@ -1,0 +1,21 @@
+h1 {
+  font-size: 2rem;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.sub_title {
+  color: rgb(59, 59, 59);
+  margin: 0 0 0 2rem;
+}
+
+.normal {
+  color: #333;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}

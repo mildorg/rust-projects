@@ -1,0 +1,23 @@
+.form-container {
+  display: flex;
+}
+
+.button-container {
+  margin-bottom: 1rem;
+}
+
+.button-container > div:first-child {
+  margin-right: 1rem;
+}
+
+.form-value {
+  border: 1px solid #ccc;
+  margin-left: 2rem;
+  padding: 1rem;
+  line-height: 1.5em;
+  width: 20rem;
+}
+
+.form-value > p {
+  margin: 0;
+}

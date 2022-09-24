@@ -1,3 +1,13 @@
 {
-  "cSpell.words": ["codepoint", "linebreak", "rustacean", "vecs"]
+  "cSpell.words": [
+    "codepoint",
+    "doccomments",
+    "gloo",
+    "linebreak",
+    "onchange",
+    "powf",
+    "rustacean",
+    "rustc",
+    "vecs"
+  ]
 }
