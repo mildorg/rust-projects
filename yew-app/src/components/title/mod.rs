@@ -1,9 +1,9 @@
 use stylist::yew::styled_component;
-use yew::prelude::{html, Properties};
+use yew::prelude::*;
 
-use crate::module::utilities::style::create_style;
+use crate::utils::style::create_style;
 
-const STYLE_FILE: &str = include_str!("./style.css");
+const STYLE_FILE: &str = include_str!("style.css");
 
 #[derive(Properties, PartialEq)]
 pub struct TitleProps {

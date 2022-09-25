@@ -1,4 +1,5 @@
 mod button;
+pub mod structs;
 mod text_input;
 mod title;
 

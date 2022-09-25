@@ -1,10 +1,12 @@
 {
   "cSpell.words": [
+    "bindgen",
     "codepoint",
     "doccomments",
     "gloo",
     "linebreak",
     "onchange",
+    "onclick",
     "powf",
     "rustacean",
     "rustc",

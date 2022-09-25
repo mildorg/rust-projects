@@ -1,11 +1,11 @@
 use stylist::yew::styled_component;
 use wasm_bindgen::JsCast;
 use web_sys::HtmlInputElement;
-use yew::prelude::{html, Callback, Event, Properties};
+use yew::prelude::*;
 
-use crate::module::utilities::style::create_styles;
+use crate::utils::style::create_styles;
 
-const STYLE_FILE: &str = include_str!("./style.css");
+const STYLE_FILE: &str = include_str!("style.css");
 
 #[derive(Properties, PartialEq)]
 pub struct TextInputProps {

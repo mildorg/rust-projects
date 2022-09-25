@@ -7,9 +7,16 @@ edition = "2021"
 
 [dependencies]
 yew = "0.19.3"
-gloo = "0.8.0"
-serde = "1.0.145"
-serde_json = "1.0.85"
 stylist = {version = "0.10", features = ["yew"]}
 wasm-bindgen = "0.2.83"
-web-sys = { version = "0.3.60", features = ["HtmlInputElement"] }
+
+[dependencies.web-sys]
+version = "0.3.60"
+features = [
+    "HtmlButtonElement",
+    "HtmlDivElement",
+    "HtmlInputElement",
+]
+
+[dev-dependencies]
+gloo = "0.8.0"
