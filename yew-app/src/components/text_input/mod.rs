@@ -12,7 +12,7 @@ pub struct TextInputProps {
     pub name: String,
     #[prop_or_default]
     pub label: String,
-    pub onchange: Callback<String>,
+    pub onchange: Callback<(String, Event)>,
 }
 
 #[styled_component(TextInput)]
@@ -29,7 +29,7 @@ pub fn text_input(props: &TextInputProps) -> Html {
 
     let handle_change = Callback::from(move |e: Event| {
         let input: Option<HtmlInputElement> = e.target().and_then(|e| e.dyn_into().ok());
-        input.map(|input| onchange.emit(input.value()));
+        input.map(|input| onchange.emit((input.value(), e)));
     });
 
     html! {

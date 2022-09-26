@@ -2,9 +2,10 @@ use std::ops::Deref;
 use stylist::yew::styled_component;
 use yew::prelude::*;
 use yew::UseStateHandle;
+use yew_router::prelude::*;
 
-use crate::components::structs::Theme;
-use crate::components::{Button, ButtonKind, TextInput, Title};
+use crate::components::{structs::Theme, Button, ButtonKind, TextInput, Title};
+use crate::router::Route;
 use crate::utils::style::create_style;
 
 const STYLE_FILE: &str = include_str!("style.css");
@@ -15,13 +16,13 @@ struct FormData {
     password: String,
 }
 
-fn generate_changer<F>(state: &UseStateHandle<FormData>, f: F) -> Callback<String>
+fn generate_changer<F>(state: &UseStateHandle<FormData>, f: F) -> Callback<(String, Event)>
 where
     F: Fn(&UseStateHandle<FormData>, String) -> FormData + 'static,
 {
     let cloned_state = state.clone();
 
-    Callback::from(move |value: String| {
+    Callback::from(move |(value, _event)| {
         let data = f(&cloned_state, value);
         cloned_state.set(data);
     })
@@ -31,6 +32,7 @@ where
 pub fn login() -> Html {
     let state = use_state(|| FormData::default());
     let theme_context = use_context::<UseStateHandle<Theme>>().unwrap();
+    let history = use_history().unwrap();
 
     let handle_username_change = generate_changer(&state, move |cloned_state, username| FormData {
         username,
@@ -55,6 +57,8 @@ pub fn login() -> Html {
         })
     };
 
+    let go_home = Callback::from(move |_| history.push(Route::Home));
+
     html! {
         <div class={create_style(STYLE_FILE)}>
             <div class="form-container">
@@ -67,6 +71,10 @@ pub fn login() -> Html {
                     <div class="button-container">
                         <Button text="Login" onclick={handle_submit}/>
                         <Button text="Cancel" kind={ButtonKind::Secondary}/>
+                    </div>
+                    <div class="button-container">
+                        <Button text="Go Home" kind={ButtonKind::Link} onclick={go_home} />
+                        <Link<Route> to={Route::Hello}>{"To Hello"}</Link<Route>>
                     </div>
                 </form>
                 <div class="form-value">

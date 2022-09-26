@@ -22,10 +22,8 @@ pub fn app() -> Html {
 
     html! {
         <ContextProvider<UseStateHandle<Theme>> context={theme_state}>
-            <div class={style}>
-                <Login />
-            </div>
             <BrowserRouter>
+                <div class={style}><Login /></div>
                 <Switch<Route> render={Switch::render(switch)} />
             </BrowserRouter>
         </ContextProvider<UseStateHandle<Theme>>>
