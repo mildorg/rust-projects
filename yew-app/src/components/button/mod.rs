@@ -24,14 +24,14 @@ pub enum ButtonKind {
 
 #[derive(Properties, PartialEq)]
 pub struct ButtonProps {
-    pub text: &'static str,
+    pub text: String,
     pub button_type: Option<ButtonType>,
     pub kind: Option<ButtonKind>,
     #[prop_or_default]
     pub onclick: Callback<HtmlButtonElement>,
 }
 
-fn get_button_type(button_type: &Option<ButtonType>) -> &'static str {
+fn get_button_type(button_type: &Option<ButtonType>) -> String {
     button_type
         .map(|b| match b {
             ButtonType::Button => "button",
@@ -39,14 +39,16 @@ fn get_button_type(button_type: &Option<ButtonType>) -> &'static str {
             ButtonType::Reset => "reset",
         })
         .unwrap_or("button")
+        .to_string()
 }
 
-fn get_button_kind(kind: &Option<ButtonKind>) -> &'static str {
+fn get_button_kind(kind: &Option<ButtonKind>) -> String {
     kind.map(|k| match k {
         ButtonKind::Primary => "primary",
         ButtonKind::Secondary => "secondary",
     })
     .unwrap_or("primary")
+    .to_string()
 }
 
 #[styled_component(Button)]
