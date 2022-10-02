@@ -1,0 +1,15 @@
+body {
+  align-self: start;
+  background-color: rgb(236, 230, 222);
+  display: flex;
+  justify-content: center;
+  max-width: 0;
+  padding: auto;
+  text-align: center;
+  text-shadow: none;
+
+  > div {
+    font-size: 2rem;
+    margin: 2rem;
+  }
+}
