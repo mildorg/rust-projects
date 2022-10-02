@@ -13,3 +13,6 @@ Cargo.lock
 # build boundles
 **/dist/
 **/build/
+
+# third party lib
+trunk-master

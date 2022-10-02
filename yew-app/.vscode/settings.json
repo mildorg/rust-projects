@@ -3,6 +3,7 @@
     "bindgen",
     "onchange",
     "onclick",
-    "Routable"
+    "Routable",
+    "yewdux"
   ]
 }

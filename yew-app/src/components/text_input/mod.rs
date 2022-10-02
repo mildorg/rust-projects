@@ -8,7 +8,7 @@ use crate::utils::style::create_styles;
 const STYLE_FILE: &str = include_str!("style.css");
 
 #[derive(Properties, PartialEq)]
-pub struct TextInputProps {
+pub struct Props {
     pub name: String,
     #[prop_or_default]
     pub label: String,
@@ -16,15 +16,14 @@ pub struct TextInputProps {
 }
 
 #[styled_component(TextInput)]
-pub fn text_input(props: &TextInputProps) -> Html {
-    let TextInputProps {
+pub fn text_input(
+    Props {
         name,
         label,
         onchange,
-    } = props;
-
+    }: &Props,
+) -> Html {
     let styles = create_styles(vec![STYLE_FILE, "margin-bottom: 1rem;"]);
-
     let onchange = onchange.clone();
 
     let handle_change = Callback::from(move |e: Event| {
