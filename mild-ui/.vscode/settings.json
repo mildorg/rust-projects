@@ -1,4 +1,4 @@
 {
-  "cSpell.words": ["necolas", "stylelint"],
+  "cSpell.words": ["Minifier", "necolas", "stylelint"],
   "stylelint.configFile": "./mild-styles/.stylelintrc"
 }

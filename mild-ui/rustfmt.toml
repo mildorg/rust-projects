@@ -1,4 +1,4 @@
-comment_width = 100
+comment_width = 80
 condense_wildcard_suffixes = true
 error_on_line_overflow = true
 fn_single_line = true

@@ -1,0 +1,2 @@
+[alias]
+dev = "cargo watch -x run"

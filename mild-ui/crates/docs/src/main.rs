@@ -1,4 +1,4 @@
-use mild_ui::Hello;
+use mild_core::Hello;
 use yew::start_app;
 
 fn main() {
