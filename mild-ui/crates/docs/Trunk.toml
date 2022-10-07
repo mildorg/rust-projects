@@ -1,0 +1,11 @@
+[watch]
+# Paths to watch. The `build.target`'s parent folder is watched by default.
+watch = [
+    # mild-core
+    "../core/src",
+    # mild-style
+    "../../mild-style/dist/style.css",
+    # mild-docs
+    "./assets",
+    "./src"
+]

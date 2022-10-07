@@ -7,14 +7,13 @@ const OUT_FILE = 'bundle.js';
 
 module.exports = (env) => {
   const isPro = !!env.production;
-  const proDist = path.resolve(__dirname, 'dist');
-  const devDist = path.resolve(__dirname, '../crates/docs/assets/core-css');
+  const dist = path.resolve(__dirname, 'dist');
 
   return {
     mode: isPro ? 'production' : 'development',
     entry: './index.js',
     output: {
-      path: isPro ? proDist : devDist,
+      path: dist,
       filename: OUT_FILE,
       clean: true,
     },
@@ -49,16 +48,12 @@ module.exports = (env) => {
 
     plugins: [
       new MiniCssExtractPlugin({
-        filename: isPro ? 'style.min.css' : 'style.css',
+        filename: 'style.css',
       }),
       new CleanWebpackPlugin({
         dangerouslyAllowCleanPatternsOutsideProject: true,
         dry: false,
-        cleanAfterEveryBuildPatterns: [
-          isPro
-            ? path.resolve(proDist, OUT_FILE)
-            : path.resolve(devDist, OUT_FILE),
-        ],
+        cleanAfterEveryBuildPatterns: [path.resolve(dist, OUT_FILE)],
       }),
     ],
   };

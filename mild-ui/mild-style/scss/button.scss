@@ -1,15 +1,13 @@
-body {
-  align-self: start;
-  background-color: rgb(236, 230, 222);
-  display: flex;
-  justify-content: center;
-  max-width: 0;
-  padding: auto;
-  text-align: center;
-  text-shadow: none;
+.button {
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  height: 36px;
+  padding: 0 1rem;
 
-  > div {
-    font-size: 2rem;
-    margin: 2rem;
+  &--primary {
+    background-color: rgb(9, 9, 212);
+    border-color: rgb(9, 9, 212);
+    color: #fff;
   }
 }
