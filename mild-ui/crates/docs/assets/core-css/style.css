@@ -359,10 +359,7 @@ body {
   background-color: rgb(236, 230, 222);
   display: flex;
   justify-content: center;
-  max-width: 0;
-  padding: auto;
-  text-align: center;
-  text-shadow: none;
+  margin: 2rem;
 }
 body > div {
   font-size: 2rem;

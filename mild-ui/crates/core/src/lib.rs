@@ -1,3 +1,5 @@
+mod button;
+
 use yew::prelude::*;
 
 #[function_component(Hello)]
