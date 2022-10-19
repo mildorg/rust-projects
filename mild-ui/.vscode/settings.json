@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["hotwatch", "Minifier", "necolas", "stylelint"],
+  "cSpell.words": ["gloo", "hotwatch", "Minifier", "necolas", "stylelint"],
   "stylelint.configFile": "./mild-style/.stylelintrc",
   "stylelint.validate": ["scss"]
 }

@@ -6,7 +6,7 @@ use mild_core::button::{Button, ButtonKind};
 #[function_component(Hello)]
 fn hello() -> Html {
     html! {
-        <Button text="button" kind={ButtonKind::Secondary}/>
+        <Button text="button" kind={ButtonKind::Primary}/>
     }
 }
 

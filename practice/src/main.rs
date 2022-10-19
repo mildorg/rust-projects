@@ -30,10 +30,10 @@ fn main() {
     // closures::learn();
     // generics::learn();
     // scoping::learn();
-    // traits::learn();
+    traits::learn();
     // macro_rules::learn();
     // error_handling::learn();
     // stb_lib_types::learn();
     // stb_misc::learn();
-    unsafe_operations::learn();
+    // unsafe_operations::learn();
 }
