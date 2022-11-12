@@ -19,6 +19,7 @@
         "ignoreAtRules": [
           "else",
           "error",
+          "extend",
           "for",
           "function",
           "if",
@@ -29,7 +30,26 @@
         ]
       }
     ],
+    "annotation-no-unknown": [
+      true,
+      {
+        "ignoreAnnotations": ["default"]
+      }
+    ],
+    "function-no-unknown": [
+      true,
+      {
+        "ignoreFunctions": ["darken"]
+      }
+    ],
+    "selector-no-qualifying-type": [
+      true,
+      {
+        "ignore": ["attribute", "class", "id"]
+      }
+    ],
     "alpha-value-notation": "number",
-    "color-function-notation": "legacy"
+    "color-function-notation": "legacy",
+    "max-nesting-depth": 3
   }
 }

@@ -1,15 +1,21 @@
+mod pages;
+mod router;
+
 use yew::prelude::*;
 use yew::start_app;
+use yew_router::prelude::*;
 
-use mild_core::button::{Button, ButtonKind};
+use router::{switch, Route};
 
-#[function_component(Hello)]
-fn hello() -> Html {
+#[function_component(App)]
+fn app() -> Html {
     html! {
-        <Button text="button" kind={ButtonKind::Primary}/>
+        <BrowserRouter>
+            <Switch<Route> render={Switch::render(switch)}/>
+        </BrowserRouter>
     }
 }
 
 fn main() {
-    start_app::<Hello>();
+    start_app::<App>();
 }

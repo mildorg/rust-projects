@@ -1,5 +1,13 @@
 {
-  "cSpell.words": ["gloo", "hotwatch", "Minifier", "necolas", "stylelint"],
+  "cSpell.words": [
+    "gloo",
+    "hotwatch",
+    "Minifier",
+    "necolas",
+    "Routable",
+    "stylelint",
+    "tabindex"
+  ],
   "stylelint.configFile": "./mild-style/.stylelintrc",
   "stylelint.validate": ["scss"]
 }

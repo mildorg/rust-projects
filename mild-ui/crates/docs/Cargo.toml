@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 mild-core = {path = "../core"}
 yew = "0.19.3"
+yew-router = "0.16.0"
