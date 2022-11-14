@@ -1,13 +1,80 @@
-.button {
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  height: 36px;
-  padding: 0 1rem;
+.btn {
+  @include button-size(
+    $btn-padding-y,
+    $btn-padding-x,
+    $btn-font-size,
+    $border-radius
+  );
 
-  &--primary {
-    background-color: rgb(9, 9, 212);
-    border-color: rgb(9, 9, 212);
-    color: #fff;
+  background-image: none;
+  border: $btn-border-width solid transparent;
+  box-shadow: $btn-box-shadow;
+  color: $body-color;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: $btn-font-weight;
+  line-height: $btn-line-height;
+  position: relative;
+  text-align: center;
+  transition: $btn-transition;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &.disabled {
+    box-shadow: none;
+    opacity: $btn-disabled-opacity;
+    pointer-events: none;
+  }
+}
+
+.btn-lg {
+  @include button-size(
+    $btn-padding-y-lg,
+    $btn-padding-x-lg,
+    $btn-font-size-lg,
+    $border-radius-lg
+  );
+}
+
+.btn-sm {
+  @include button-size(
+    $btn-padding-y-sm,
+    $btn-padding-x-sm,
+    $btn-font-size-sm,
+    $border-radius-sm
+  );
+}
+
+.btn-default {
+  @include button-style(
+    $white,
+    $gray-400,
+    $body-color,
+    $white,
+    $primary,
+    $primary
+  );
+}
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    @include button-style($value, $value, $white);
+  }
+}
+
+.btn-link {
+  box-shadow: none;
+  color: $btn-link-color;
+  font-weight: $font-weight-normal;
+  text-decoration: $link-decoration;
+
+  &:hover {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+
+  &:focus {
+    box-shadow: none;
+    text-decoration: $link-hover-decoration;
   }
 }

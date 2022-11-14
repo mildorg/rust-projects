@@ -418,6 +418,10 @@ button:focus {
   outline: 5px auto -webkit-focus-ring-color;
 }
 
+button:focus:not(:focus-visible) {
+  outline: 0;
+}
+
 // Remove inner border and padding from Firefox, but don't restore the outline like Normalize.
 
 ::-moz-focus-inner {

@@ -10,9 +10,11 @@ use router::{switch, Route};
 #[function_component(App)]
 fn app() -> Html {
     html! {
-        <BrowserRouter>
-            <Switch<Route> render={Switch::render(switch)}/>
-        </BrowserRouter>
+        <div class="doc-container">
+            <BrowserRouter>
+                <Switch<Route> render={Switch::render(switch)}/>
+            </BrowserRouter>
+        </div>
     }
 }
 
