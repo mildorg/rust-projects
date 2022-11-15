@@ -1,31 +1,21 @@
 use std::fmt::{Display, Formatter, Result};
-
 use yew::prelude::*;
-use yew::virtual_dom::AttrValue;
 
 #[derive(PartialEq, Eq, Clone)]
 pub enum ButtonKind {
-    Link,
     Danger,
-    Default,
-    Info,
+    Text,
     Primary,
     Secondary,
-    Success,
-    Warning,
 }
 
 impl Display for ButtonKind {
     fn fmt(&self, f: &mut Formatter) -> Result {
         let kind = match self {
-            ButtonKind::Link => "link",
             ButtonKind::Danger => "danger",
-            ButtonKind::Default => "default",
-            ButtonKind::Info => "info",
+            ButtonKind::Text => "text",
             ButtonKind::Primary => "primary",
             ButtonKind::Secondary => "secondary",
-            ButtonKind::Success => "success",
-            ButtonKind::Warning => "warning",
         };
         write!(f, "{}", kind)
     }
@@ -44,10 +34,12 @@ fn prefix(s: &str) -> String {
 fn get_classes(
     kind: &ButtonKind,
     size: &Option<ButtonSize>,
-    class: &Classes,
+    href: &str,
     disabled: bool,
+    class: &Classes,
 ) -> Classes {
-    let kind_class = prefix(kind.to_string().as_str());
+    let kind_class =
+        if href.is_empty() { prefix(kind.to_string().as_str()) } else { prefix("link") };
 
     let size_class = size.as_ref().map(|item| match item {
         ButtonSize::Sm => prefix("sm"),
@@ -66,30 +58,34 @@ fn get_classes(
 #[derive(Properties, PartialEq)]
 pub struct Props {
     pub children: Children,
-    #[prop_or(ButtonKind::Default)]
+    #[prop_or(ButtonKind::Primary)]
     pub kind: ButtonKind,
-    #[prop_or_default]
-    pub class: Classes,
     pub size: Option<ButtonSize>,
-    pub href: Option<AttrValue>,
+    /// If pass href prop, display a link button
+    #[prop_or_default]
+    pub href: String,
     #[prop_or_default]
     pub disabled: bool,
+    #[prop_or_default]
+    pub class: Classes,
+    pub id: Option<String>,
 }
 
 #[function_component(Button)]
-pub fn button(Props { children, kind, class, size, href, disabled }: &Props) -> Html {
-    let class_list = get_classes(kind, size, class, *disabled);
+pub fn button(Props { children, kind, class, size, href, disabled, id }: &Props) -> Html {
+    let class_list = get_classes(kind, size, href, *disabled, class);
     let child_list = children.iter().collect::<Html>();
 
     let handle_click = Callback::from(|_| {
         gloo_console::log!("click");
     });
 
-    if *kind == ButtonKind::Link && href.is_some() {
+    if !href.is_empty() {
         return html! {
             <a
+                id={id.clone()}
                 class={class_list}
-                href={href.as_ref().unwrap().clone()}
+                href={href.clone()}
             >
                 {child_list}
             </a>
@@ -98,6 +94,7 @@ pub fn button(Props { children, kind, class, size, href, disabled }: &Props) -> 
 
     html! {
         <button
+            id={id.clone()}
             class={class_list}
             disabled={*disabled}
             onclick={handle_click}

@@ -13,24 +13,7 @@
     }
   ],
   "rules": {
-    "at-rule-no-unknown": [
-      true,
-      {
-        "ignoreAtRules": [
-          "else",
-          "error",
-          "extend",
-          "for",
-          "function",
-          "if",
-          "include",
-          "mixin",
-          "return",
-          "warn",
-          "@each"
-        ]
-      }
-    ],
+    "at-rule-no-unknown": null,
     "annotation-no-unknown": [
       true,
       {
