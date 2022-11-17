@@ -27,6 +27,7 @@
   }
 }
 
+// button size
 .btn-lg {
   @include button-size(
     $btn-padding-y-lg,
@@ -45,7 +46,8 @@
   );
 }
 
-.btn-text {
+// button kind
+.btn-default {
   @include button-style(
     $white,
     $gray-400,
@@ -56,12 +58,23 @@
   );
 }
 
-@each $color, $value in $btn-theme-colors {
-  .btn-#{$color} {
-    @include button-style($value, $value, $white);
-  }
+.btn-primary {
+  @include button-style($primary, $primary, $white);
 }
 
+.btn-text {
+  @include button-style($white, $white, $body-color, $gray-200);
+
+  box-shadow: none;
+}
+
+.btn-danger {
+  @include button-style($danger, $danger, $white);
+
+  box-shadow: none;
+}
+
+// link button
 .btn-link {
   box-shadow: none;
   color: $btn-link-color;
@@ -69,7 +82,24 @@
   text-decoration: $link-decoration;
 
   &:hover {
-    color: $link-hover-color;
+    color: $btn-link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+
+  &:focus {
+    box-shadow: none;
+    text-decoration: $link-hover-decoration;
+  }
+}
+
+.btn-danger-link {
+  box-shadow: none;
+  color: $btn-danger-link-color;
+  font-weight: $font-weight-normal;
+  text-decoration: $link-decoration;
+
+  &:hover {
+    color: $btn-danger-link-hover-color;
     text-decoration: $link-hover-decoration;
   }
 

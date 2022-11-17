@@ -110,8 +110,11 @@ $headings-color: null !default;
 // link
 $link-color: $primary !default;
 $link-decoration: none !default;
-$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-color: lighten($link-color, 10%) !default;
 $link-hover-decoration: underline !default;
+
+$danger-link-color: $danger !default;
+$danger-link-hover-color: lighten($danger-link-color, 10%) !default;
 
 // body
 $body-bg: $white !default;
@@ -137,14 +140,6 @@ $legend-margin-bottom: 0.5rem !default;
 $legend-font-size: 1.5rem !default;
 $legend-font-weight: null !default;
 
-// button
-// basic button variables
-$btn-theme-colors: (
-  'primary': $primary,
-  'secondary': $secondary,
-  'danger': $danger,
-) !default;
-
 $btn-font-weight: 400;
 $btn-font-family: $font-family-base !default;
 $btn-font-size: $font-size-base !default;
@@ -166,7 +161,7 @@ $btn-border-width: $border-width !default;
 
 // button other
 $btn-box-shadow: inset 0 1px 0 rgba($white, 0.15), 0 1px 1px rgba($black, 0.075) !default;
-$btn-disabled-opacity: 0.65 !default;
+$btn-disabled-opacity: 0.6 !default;
 
 $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
   border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
@@ -174,4 +169,7 @@ $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 // link button
 $btn-link-color: $link-color !default;
 $btn-link-hover-color: $link-hover-color !default;
-$btn-link-disabled-color: $gray-600 !default;
+
+// danger link
+$btn-danger-link-color: $danger-link-color !default;
+$btn-danger-link-hover-color: $danger-link-hover-color !default;

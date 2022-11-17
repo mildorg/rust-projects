@@ -1,9 +1,9 @@
+// config _variables
+@import "./config/variables";
+
+// config functions
+@import "./config/functions";
+
 @import "./button-doc.scss";
 
-.doc-container {
-  padding: 1.5rem;
-}
-
-.section {
-  margin-bottom: 2rem;
-}
+@import "./layout.scss";

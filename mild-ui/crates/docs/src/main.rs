@@ -1,5 +1,6 @@
 mod pages;
 mod router;
+mod utils;
 
 use yew::prelude::*;
 use yew::start_app;

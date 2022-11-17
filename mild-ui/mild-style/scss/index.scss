@@ -1,11 +1,14 @@
-// config mixins
-@import './config/mixin';
-
 // config variables
 @import './config/variables';
 
 // config reboot
 @import './config/reboot';
+
+// config functions
+@import './config/functions';
+
+// config mixin
+@import './config/mixin';
 
 // components
 @import './button';

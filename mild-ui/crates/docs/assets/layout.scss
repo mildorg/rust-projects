@@ -1,0 +1,11 @@
+.doc-container {
+  padding: 1.5rem;
+}
+
+.section {
+  margin-bottom: rem(36px);
+
+  > h2 {
+    margin-bottom: rem(12px);
+  }
+}

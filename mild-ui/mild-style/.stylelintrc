@@ -23,7 +23,7 @@
     "function-no-unknown": [
       true,
       {
-        "ignoreFunctions": ["darken"]
+        "ignoreFunctions": ["darken", "lighten"]
       }
     ],
     "selector-no-qualifying-type": [
