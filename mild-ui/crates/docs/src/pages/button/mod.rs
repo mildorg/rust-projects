@@ -30,14 +30,29 @@ fn render_buttons(disabled: bool) -> Vec<Html> {
     buttons
 }
 
+fn render_button_sizes() -> Vec<Html> {
+    let sizes = vec![ButtonSize::Small, ButtonSize::Medium, ButtonSize::Large];
+
+    let buttons=  sizes.iter().map(|size| {
+        html! {
+            <Button key={size.to_string()} size={size.clone()}>{to_first_upper(&size.to_string())}</Button>
+        }
+    }).collect::<Vec<Html>>();
+
+    let link_buttons =sizes.iter().map(|size| {
+        html! {
+            <Button href="#" key={size.to_string()} size={size.clone()} >{to_first_upper(&size.to_string())}</Button>
+        }
+    }).collect::<Vec<Html>>();
+
+    [buttons, link_buttons].concat()
+}
+
 #[function_component(ButtonDoc)]
 pub(crate) fn button_doc() -> Html {
     let danger = "Danger";
-    let default = "Default";
     let primary = "Primary";
     let link = "Link";
-    let small = "Small";
-    let large = "Lager";
 
     html! {
         <div class="button-doc">
@@ -48,12 +63,7 @@ pub(crate) fn button_doc() -> Html {
 
             <div class="section">
                 <h2>{"Sizes"}</h2>
-                <Button size={ButtonSize::Sm}>{small}</Button>
-                <Button >{default}</Button>
-                <Button size={ButtonSize::Lg} >{large}</Button>
-                <Button size={ButtonSize::Sm}  href="#">{small}</Button>
-                <Button href="#">{default}</Button>
-                <Button size={ButtonSize::Lg}  href="#">{large}</Button>
+                {render_button_sizes()}
             </div>
 
             <div class="section">
