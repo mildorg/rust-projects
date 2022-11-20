@@ -1,8 +1,10 @@
+mod helper;
+pub use self::helper::{ButtonType, ButtonVariant};
+
 use yew::prelude::*;
 
-mod helper;
 use self::helper::get_styles;
-pub use self::helper::{ButtonColor, ButtonKind, ButtonSize, ButtonType};
+use crate::styles::{Color, Size};
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
@@ -11,22 +13,20 @@ pub struct Props {
     pub children: Children,
     #[prop_or_default]
     pub class: Classes,
-    #[prop_or(ButtonColor::Default)]
-    pub color: ButtonColor,
-    #[prop_or_default]
-    pub danger: bool,
+    #[prop_or(Color::Primary)]
+    pub color: Color,
     #[prop_or_default]
     pub disabled: bool,
     /// If pass href prop, display a link button
     #[prop_or_default]
     pub href: String,
     pub id: Option<String>,
-    #[prop_or(ButtonKind::Default)]
-    pub kind: ButtonKind,
+    #[prop_or(ButtonVariant::Outlined)]
+    pub variant: ButtonVariant,
     #[prop_or_default]
     pub onclick: Callback<MouseEvent>,
-    #[prop_or(ButtonSize::Medium)]
-    pub size: ButtonSize,
+    #[prop_or(Size::Medium)]
+    pub size: Size,
 }
 
 #[function_component(Button)]
@@ -36,16 +36,15 @@ pub fn button(
         children,
         class,
         color,
-        danger,
         disabled,
         href,
         id,
-        kind,
+        variant,
         onclick,
         size,
     }: &Props,
 ) -> Html {
-    let styles = get_styles(kind, size, href, *danger, *disabled, class);
+    let styles = get_styles(variant, color, size, href, *disabled, class);
 
     let child_list = children.iter().collect::<Html>();
 
@@ -75,7 +74,7 @@ pub fn button(
             onclick={handle_click}
             type={button_type.to_string()}
         >
-            {child_list}
+            <div>{child_list}</div>
         </button>
     }
 }

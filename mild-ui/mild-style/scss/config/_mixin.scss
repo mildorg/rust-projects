@@ -7,20 +7,16 @@
 
 @mixin button-style(
   $background,
-  $border-color,
   $color,
-  $hover-background: lighten($background, 10%),
-  $hover-border: lighten($border-color, 15%),
-  $hover-color: $color
+  $border-color: fade-out($color, 0.5),
+  $hover-background: darken($background, $action-hover)
 ) {
   background: $background;
   border-color: $border-color;
   color: $color;
 
-  &:hover,
-  &:focus {
+  &:hover {
     background: $hover-background;
-    border-color: $hover-border;
-    color: $hover-color;
+    color: $color;
   }
 }

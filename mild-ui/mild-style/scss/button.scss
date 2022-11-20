@@ -6,24 +6,39 @@
     $border-radius
   );
 
+  align-items: center;
   background-image: none;
-  border: $btn-border-width solid transparent;
+  border: 0;
   box-shadow: $btn-box-shadow;
-  color: $body-color;
+  color: $text-primary;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
   font-weight: $btn-font-weight;
+  justify-content: center;
   line-height: $btn-line-height;
+  min-height: rem(36px);
+  min-width: $spacer * 11;
+  outline: none;
   position: relative;
   text-align: center;
+  text-decoration: none;
   transition: $btn-transition;
   vertical-align: middle;
   white-space: nowrap;
 
   &.disabled {
     box-shadow: none;
+    cursor: default;
     opacity: $btn-disabled-opacity;
     pointer-events: none;
+  }
+
+  // button content
+  > div:first-child {
+    align-items: inherit;
+    display: inherit;
+    justify-content: inherit;
+    width: 100%;
   }
 }
 
@@ -46,65 +61,68 @@
   );
 }
 
-// button kind
-.btn-default {
-  @include button-style(
-    $white,
-    $gray-400,
-    $body-color,
-    $white,
-    $primary,
-    $primary
-  );
-}
-
-.btn-primary {
-  @include button-style($primary, $primary, $white);
-}
-
-.btn-text {
-  @include button-style($white, $white, $body-color, $gray-200);
-
-  box-shadow: none;
-}
-
-.btn-danger {
-  @include button-style($danger, $danger, $white);
-
-  box-shadow: none;
-}
-
-// link button
-.btn-link {
-  box-shadow: none;
-  color: $btn-link-color;
-  font-weight: $font-weight-normal;
-  text-decoration: $link-decoration;
-
-  &:hover {
-    color: $btn-link-hover-color;
-    text-decoration: $link-hover-decoration;
+// contained button color
+@each $name, $value in $theme-colors {
+  .btn-contained-#{$name} {
+    @if $name == 'warning' {
+      @include button-style($value, $text-primary);
+    } @else {
+      @include button-style($value, $white);
+    }
   }
+}
 
-  &:focus {
+// outlined button color
+@each $name, $value in $theme-colors {
+  .btn-outlined-#{$name} {
+    @include button-style(
+      none,
+      $value,
+      fade-out($value, 0.5),
+      $hover-background: fade-out($value, $action-hover-fade-out)
+    );
+
+    border: $btn-border-width solid;
+    height: rem(34px);
+    padding-left: calc($btn-padding-x - 1px);
+    padding-right: calc($btn-padding-x - 1px);
+  }
+}
+
+// text button color
+@each $name, $value in $theme-colors {
+  .btn-text-#{$name} {
+    @include button-style(
+      none,
+      $value,
+      unset,
+      $hover-background: fade-out($value, $action-hover-fade-out)
+    );
+
     box-shadow: none;
-    text-decoration: $link-hover-decoration;
   }
 }
 
-.btn-danger-link {
-  box-shadow: none;
-  color: $btn-danger-link-color;
-  font-weight: $font-weight-normal;
-  text-decoration: $link-decoration;
+// circle button color
+@each $name, $value in $theme-colors {
+  .btn-circle-#{$name} {
+    @include button-style($value, $white);
 
-  &:hover {
-    color: $btn-danger-link-hover-color;
-    text-decoration: $link-hover-decoration;
+    border-radius: 50%;
+    font-size: rem(24px);
+    height: rem(56px);
+    line-height: unset;
+    min-width: 0;
+    padding: 0;
+    width: rem(56px);
   }
+}
 
-  &:focus {
+// link button color
+@each $name, $value in $theme-colors {
+  .btn-link-#{$name} {
+    @include button-style(none, $value, unset, none);
+
     box-shadow: none;
-    text-decoration: $link-hover-decoration;
   }
 }

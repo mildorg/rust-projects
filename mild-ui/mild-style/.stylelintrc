@@ -23,7 +23,7 @@
     "function-no-unknown": [
       true,
       {
-        "ignoreFunctions": ["darken", "lighten"]
+        "ignoreFunctions": ["darken", "lighten", "map-get"]
       }
     ],
     "selector-no-qualifying-type": [

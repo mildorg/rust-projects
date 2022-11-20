@@ -1,6 +1,8 @@
 use std::fmt::{Display, Formatter, Result};
 use yew::prelude::*;
 
+use crate::styles::{Color, Size, STYLE_PREFIX};
+
 /// The html button type
 #[derive(PartialEq, Eq, Clone)]
 pub enum ButtonType {
@@ -10,7 +12,7 @@ pub enum ButtonType {
 }
 
 impl Display for ButtonType {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         let btn_type = match self {
             ButtonType::Button => "button",
             ButtonType::Reset => "reset",
@@ -23,91 +25,50 @@ impl Display for ButtonType {
 
 /// The kind for button
 #[derive(PartialEq, Eq, Clone)]
-pub enum ButtonKind {
-    Default,
+pub enum ButtonVariant {
+    Circle,
+    Contained,
+    Outlined,
     Text,
-    Primary,
 }
 
-impl Display for ButtonKind {
+impl Display for ButtonVariant {
     fn fmt(&self, f: &mut Formatter) -> Result {
         let kind = match self {
-            ButtonKind::Default => "default",
-            ButtonKind::Text => "text",
-            ButtonKind::Primary => "primary",
+            ButtonVariant::Text => "text",
+            ButtonVariant::Circle => "circle",
+            ButtonVariant::Contained => "contained",
+            ButtonVariant::Outlined => "outlined",
         };
         write!(f, "{}", kind)
     }
 }
 
-/// The size for button
-#[derive(PartialEq, Eq, Clone)]
-pub enum ButtonSize {
-    Small,
-    Medium,
-    Large,
-}
-
-impl Display for ButtonSize {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        let size = match self {
-            ButtonSize::Small => "small",
-            ButtonSize::Medium => "medium",
-            ButtonSize::Large => "large",
-        };
-
-        write!(f, "{}", size)
-    }
-}
-
-/// The color for button
-#[derive(PartialEq, Eq, Clone)]
-pub enum ButtonColor {
-    Default,
-    Inherit,
-    Primary,
-    Secondary,
-}
-
-impl Display for ButtonColor {
-    fn fmt(&self, f: &mut Formatter) -> Result {
-        let color = match self {
-            ButtonColor::Default => "default",
-            ButtonColor::Inherit => "inherit",
-            ButtonColor::Primary => "primary",
-            ButtonColor::Secondary => "secondary",
-        };
-
-        write!(f, "{}", color)
-    }
-}
-
 // button style
 fn prefix(s: &str) -> String {
-    format!("btn-{}", s)
+    format!("{}btn-{}", STYLE_PREFIX, s)
 }
 
-fn get_kind_style(kind: &ButtonKind, href: &str, danger: bool) -> String {
-    match (href.is_empty(), danger) {
-        (true, true) => prefix("danger"),
-        (true, false) => prefix(kind.to_string().as_str()),
-        (false, true) => prefix("danger-link"),
-        (false, false) => prefix("link"),
+fn get_variant(variant: &ButtonVariant, href: &str) -> String {
+    match href.is_empty() {
+        true => variant.to_string(),
+        false => "link".to_string(),
     }
 }
 
 pub fn get_styles(
-    kind: &ButtonKind,
-    size: &ButtonSize,
+    variant: &ButtonVariant,
+    color: &Color,
+    size: &Size,
     href: &str,
-    danger: bool,
     disabled: bool,
     class: &Classes,
 ) -> Classes {
-    let kind_style = get_kind_style(kind, href, danger);
-    let size_style = prefix(&size.to_string());
+    let variant = get_variant(variant, href);
+    let variant_color = prefix(&format!("{variant}-{color}"));
+    let size = prefix(&size.to_string());
 
-    let mut class_list = classes!("btn", kind_style, size_style, class.clone());
+    let mut class_list = classes!("btn", variant_color, size, class.clone());
 
     if disabled {
         class_list.push("disabled");
