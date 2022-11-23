@@ -465,13 +465,13 @@ $ease-out: cubic-bezier(0, 0, 0.2, 1) !default;
 $ease-in: cubic-bezier(0.4, 0, 1, 1) !default;
 $sharp: cubic-bezier(0.4, 0, 0.6, 1) !default;
 
-$duration-shortest: 150 !default;
-$duration-shorter: 200 !default;
-$duration-short: 250 !default;
-$duration-standard: 300 !default;
-$duration-complex: 375 !default;
-$duration-entering-screen: 225 !default;
-$duration-leaving-screen: 195 !default;
+$duration-shortest: 150ms !default;
+$duration-shorter: 200ms !default;
+$duration-short: 250ms !default;
+$duration-standard: 300ms !default;
+$duration-complex: 375ms !default;
+$duration-entering-screen: 225ms !default;
+$duration-leaving-screen: 195ms !default;
 
 // button variables
 $btn-font-weight: $font-weight-medium !default;
@@ -510,4 +510,4 @@ $btn-danger-link-color: $danger-link-color !default;
 $btn-danger-link-hover-color: $danger-link-hover-color !default;
 
 // button ripple
-$ripple-duration: 550 !default;
+$ripple-duration: 550ms !default;
