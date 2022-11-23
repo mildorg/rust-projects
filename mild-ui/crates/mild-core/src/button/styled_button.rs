@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
 use super::helper::{get_styles, ButtonType, ButtonVariant};
-use super::ripples::Ripple;
+use super::ripple::Ripple;
 use crate::styles::{Color, Size};
 
 #[derive(Properties, PartialEq)]

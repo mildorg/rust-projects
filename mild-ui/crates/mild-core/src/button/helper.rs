@@ -1,7 +1,7 @@
 use std::fmt::{Display, Formatter, Result};
 use yew::prelude::*;
 
-use crate::styles::{Color, Size, STYLE_PREFIX};
+use crate::styles::{style_prefix, Color, Size};
 
 /// The html button type
 #[derive(PartialEq, Eq, Clone)]
@@ -45,10 +45,6 @@ impl Display for ButtonVariant {
 }
 
 // button style
-fn prefix(s: &str) -> String {
-    format!("{}btn-{}", STYLE_PREFIX, s)
-}
-
 fn get_variant(variant: &ButtonVariant, href: &str) -> String {
     match href.is_empty() {
         true => variant.to_string(),
@@ -64,6 +60,8 @@ pub fn get_styles(
     disabled: bool,
     class: &Classes,
 ) -> Classes {
+    let prefix = |s: &str| style_prefix("btn-", s);
+
     let variant = get_variant(variant, href);
     let variant_color = prefix(&format!("{variant}-{color}"));
     let size = prefix(&size.to_string());

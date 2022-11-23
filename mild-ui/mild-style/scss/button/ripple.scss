@@ -1,0 +1,76 @@
+.ripple {
+  opacity: 0;
+  position: absolute;
+
+  &-visible {
+    animation: enter $ripple-duration $ease-in-out;
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  &-pulsate {
+    animation-duration: $duration-shorter;
+  }
+
+  // ripple child
+  &_child {
+    background-color: currentcolor;
+    border-radius: 50%;
+    display: block;
+    height: 100%;
+    opacity: 1;
+    width: 100%;
+
+    &-leaving {
+      animation: exit $ripple-duration $ease-in-out;
+      opacity: 0;
+    }
+
+    &-pulsate {
+      animation: name duration timing-function delay iteration-count direction
+        fill-mode;
+      left: 0;
+      position: absolute;
+      top: 0;
+    }
+  }
+}
+
+// ripple visible animation
+@keyframes enter {
+  0% {
+    opacity: 0.1;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}
+
+// ripple child leaving animation
+@keyframes exit {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+// ripple child pulsate animation
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.92);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

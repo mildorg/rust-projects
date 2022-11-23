@@ -1,7 +1,11 @@
 use std::fmt::{Display, Formatter, Result};
 
 /// The mild ui css prefix
-pub const STYLE_PREFIX: &str = "";
+const STYLE_PREFIX: &str = "";
+
+pub fn style_prefix(identifier: &str, suffix: &str) -> String {
+    format!("{STYLE_PREFIX}{identifier}{suffix}")
+}
 
 /// The mild ui size
 #[derive(PartialEq, Eq, Clone)]
