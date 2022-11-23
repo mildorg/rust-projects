@@ -6,6 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-mild-core = {path = "../core"}
+mild-core = {path = "../mild-core"}
 yew = "0.19.3"
 yew-router = "0.16.0"

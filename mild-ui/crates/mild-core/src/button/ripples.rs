@@ -1,7 +1,7 @@
 use gloo_timers::callback::Timeout;
 use yew::prelude::*;
 
-use crate::utils::web::{console_log, get_window};
+use crate::utils::web::{get_window, log, timer::set_timeout};
 
 #[derive(PartialEq, Properties)]
 pub struct Props {
@@ -38,22 +38,27 @@ pub fn ripple(
 
             let on_exited = on_exited.clone();
 
-            let timer_id = Timeout::new(2000, move || {
-                console_log("timer_id");
+            let clear = set_timeout(*timeout, move || {
+                log::info("timer_id");
                 on_exited.emit(())
-            })
-            .forget();
+            });
 
             move || {
-                get_window().clear_timeout_with_handle(timer_id);
+                clear();
             }
         },
         (leaving, *timeout, on_exited.clone()),
     );
 
     html! {
-        <span>
+        <span style={get_style(*ripple_size, *ripple_x, *ripple_y)}>
             <span></span>
         </span>
     }
+}
+
+fn get_style(ripple_size: f32, ripple_x: f32, ripple_y: f32) -> String {
+    let top = -(ripple_size / 2.0) + ripple_y;
+    let left = -(ripple_size / 2.0) + ripple_x;
+    format!("width: {ripple_size}px; height: {ripple_x}px; top: {top}px; left: {left}px;")
 }
