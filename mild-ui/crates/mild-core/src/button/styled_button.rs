@@ -27,8 +27,8 @@ pub struct Props {
     pub size: Size,
 }
 
-#[function_component(Button)]
-pub fn button(
+#[function_component]
+pub fn Button(
     Props {
         button_type,
         children,

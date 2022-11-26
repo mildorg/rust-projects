@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 gloo-timers = "^0.2.4"
 web-sys = "^0.3.60"
-yew = "^0.19.3"
+yew = "^0.20.0"

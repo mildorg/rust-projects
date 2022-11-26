@@ -18,8 +18,8 @@ pub struct Props {
     pub timeout: u32,
 }
 
-#[function_component(Ripple)]
-pub fn ripple(
+#[function_component]
+pub fn Ripple(
     Props {
         on_exited,
         pulsate,

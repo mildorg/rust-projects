@@ -3,22 +3,21 @@ mod router;
 mod utils;
 
 use yew::prelude::*;
-use yew::start_app;
 use yew_router::prelude::*;
 
 use router::{switch, Route};
 
-#[function_component(App)]
-fn app() -> Html {
+#[function_component]
+fn App() -> Html {
     html! {
         <div class="doc-container">
             <BrowserRouter>
-                <Switch<Route> render={Switch::render(switch)}/>
+                <Switch<Route> render={switch}/>
             </BrowserRouter>
         </div>
     }
 }
 
 fn main() {
-    start_app::<App>();
+    yew::Renderer::<App>::new().render();
 }

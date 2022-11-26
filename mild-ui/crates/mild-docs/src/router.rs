@@ -9,7 +9,7 @@ pub enum Route {
     Button,
 }
 
-pub fn switch(routes: &Route) -> Html {
+pub fn switch(routes: Route) -> Html {
     match routes {
         Route::Button => html! {<ButtonDoc/>},
     }

@@ -92,8 +92,8 @@ fn render_button_sizes() -> Vec<Html> {
     [buttons, link_buttons].concat()
 }
 
-#[function_component(ButtonDoc)]
-pub(crate) fn button_doc() -> Html {
+#[function_component]
+pub(crate) fn ButtonDoc() -> Html {
     let danger = "Danger";
     let primary = "Primary";
     let link = "Link";
