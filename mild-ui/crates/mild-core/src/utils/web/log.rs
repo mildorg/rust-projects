@@ -1,17 +1,17 @@
 ///The js system's console.log
 #[allow(unused)]
-pub(crate) fn info(str: &str) {
-    web_sys::console::log_1(&str.into());
+pub(crate) fn info<T: ToString>(msg: T) {
+    web_sys::console::log_1(&msg.to_string().into());
 }
 
 /// The js system's console.warn
 #[allow(unused)]
-pub(crate) fn warn(str: &str) {
-    web_sys::console::warn_1(&str.into());
+pub(crate) fn warn<T: ToString>(msg: T) {
+    web_sys::console::warn_1(&msg.to_string().into());
 }
 
 /// The js system's console.error
 #[allow(unused)]
-pub(crate) fn error(str: &str) {
-    web_sys::console::error_1(&str.into());
+pub(crate) fn error<T: ToString>(msg: T) {
+    web_sys::console::error_1(&msg.to_string().into());
 }
