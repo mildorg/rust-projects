@@ -21,6 +21,7 @@
   min-height: rem(36px);
   min-width: $spacer * 11;
   outline: none;
+  overflow: hidden;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -45,16 +46,16 @@
 }
 
 // button size
-.btn-lg {
-  @include button-size(
-    $btn-padding-y-lg,
-    $btn-padding-x-lg,
-    $btn-font-size-lg,
-    $border-radius-lg
-  );
+.btn-large {
+  // @include button-size(
+  //   $btn-padding-y-lg,
+  //   $btn-padding-x-lg,
+  //   $btn-font-size-lg,
+  //   $border-radius-lg
+  // );
 }
 
-.btn-sm {
+.btn-small {
   @include button-size(
     $btn-padding-y-sm,
     $btn-padding-x-sm,

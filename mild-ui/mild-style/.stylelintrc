@@ -34,6 +34,7 @@
     ],
     "alpha-value-notation": "number",
     "color-function-notation": "legacy",
-    "max-nesting-depth": 3
+    "max-nesting-depth": 3,
+    "selector-class-pattern": "[a-z_-]+"
   }
 }

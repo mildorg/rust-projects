@@ -1,58 +1,65 @@
+use std::ops::Deref;
+
 use web_sys::{DomRect, HtmlElement};
 use yew::prelude::*;
+use yew::virtual_dom::VNode;
 
-use crate::utils::web::{log, timer};
+use super::ripple::Ripple;
+use crate::styles::prefix;
+use crate::utils::web::log;
 
-#[derive(PartialEq, Properties)]
+#[derive(PartialEq, Eq, Properties)]
 pub struct Props {
     #[prop_or_default]
-    class: AttrValue,
+    pub class: Classes,
     #[prop_or_default]
-    color: AttrValue,
-    #[prop_or_default]
-    center: bool,
-    #[prop_or_default]
-    component: AttrValue,
-    #[prop_or_default]
-    children: Children,
+    pub center: bool,
+    #[prop_or(AttrValue::from("div"))]
+    pub component: AttrValue,
+    #[prop_or(500)]
+    pub timeout: u32,
 }
 
 #[function_component()]
 pub fn RippleWrapper(
     Props {
         class,
-        color,
         center,
         component,
-        children,
+        timeout,
     }: &Props,
 ) -> Html {
-    let ripples = use_state(|| vec![1]);
+    let ripples = use_state(Vec::new);
     let next_key = use_state_eq(|| 0);
-    let timer_id = use_mut_ref(|| 0);
     let container_ref = use_node_ref();
+    let classes = classes!(class.clone(), prefix("ripple_wrapper"));
 
-    let handle_mouse_down = start(&container_ref, *center);
-
-    // let handle_touch_start = Callback::from(|e| start(e));
-
-    use_effect_with_deps(|_| move || timer::clear_timeout(*timer_id.borrow()), ());
+    let handle_mouse_down = start(&container_ref, *center, *timeout, &next_key, &ripples);
+    let ripple_list = (*ripples).clone().into_iter().collect::<Vec<VNode>>();
 
     html! {
-        <div
-            style="width:100%;height:100%"
-            title="abcd"
+        <@{component.to_string()}
             ref={container_ref}
+            class={classes}
             onmousedown={handle_mouse_down}
-            onmouseup={stop(&ripples)}
+            // onmouseup={stop(&ripples)}
             onmouseleave={stop(&ripples)}
-
-        ></div>
+            >
+            {ripple_list}
+        </@>
     }
 }
 
-fn start(container_ref: &NodeRef, center: bool) -> Callback<MouseEvent> {
+fn start(
+    container_ref: &NodeRef,
+    center: bool,
+    timeout: u32,
+    next_key: &UseStateHandle<i32>,
+    ripples: &UseStateHandle<Vec<VNode>>,
+) -> Callback<MouseEvent> {
     let container_ref = container_ref.clone();
+    let next_key = next_key.clone();
+    let ripples = ripples.clone();
 
     Callback::from(move |e: MouseEvent| {
         let element = container_ref.cast::<HtmlElement>();
@@ -65,11 +72,14 @@ fn start(container_ref: &NodeRef, center: bool) -> Callback<MouseEvent> {
             let (ripple_x, ripple_y) = get_coordinates(&rect, client_x, client_y, center);
             let ripple_size = get_ripple_size(el, &rect, ripple_x, ripple_y, center);
 
-            // let data = get_bounding_client_rect(el);
-
-            // log::info(format!("{:?}", data).as_str());
-            log::info(format!("{} {}", ripple_x, ripple_y).as_str());
-            log::info(format!("{}", ripple_size).as_str())
+            create_ripple(
+                ripple_x,
+                ripple_y,
+                ripple_size,
+                timeout,
+                &next_key,
+                &ripples,
+            )
         }
     })
 }
@@ -105,10 +115,38 @@ fn get_ripple_size(
     }
 }
 
-fn stop(ripples: &UseStateHandle<Vec<i32>>) -> Callback<MouseEvent> {
+fn create_ripple(
+    ripple_x: f64,
+    ripple_y: f64,
+    ripple_size: f64,
+    timeout: u32,
+    next_key: &UseStateHandle<i32>,
+    ripples: &UseStateHandle<Vec<VNode>>,
+) {
+    let next_key = next_key.clone();
+    let mut new_ripples = ripples.deref().clone();
+
+    let ripple = html! {
+        <Ripple
+            {ripple_x}
+            {ripple_y}
+            {ripple_size}
+            {timeout}
+            key={*next_key}
+        />
+    };
+
+    new_ripples.push(ripple);
+
+    ripples.set(new_ripples);
+    next_key.set(*next_key + 1);
+}
+
+fn stop(ripples: &UseStateHandle<Vec<VNode>>) -> Callback<MouseEvent> {
     let ripples = ripples.clone();
 
-    Callback::from(move |_| {
+    Callback::from(move |e: MouseEvent| {
+        log::info(e.type_().as_str());
         if !ripples.is_empty() {
             ripples.set(ripples[1..].to_vec())
         }

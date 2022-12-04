@@ -1,7 +1,6 @@
 use yew::prelude::*;
 
 use super::helper::{get_styles, ButtonType, ButtonVariant};
-use super::ripple::Ripple;
 use super::ripple_wrapper::RippleWrapper;
 use crate::styles::{Color, Size};
 
@@ -73,8 +72,8 @@ pub fn Button(
             onclick={handle_click}
             type={button_type.to_string()}
         >
-            <RippleWrapper/>
             <div>{child_list}</div>
+            <RippleWrapper />
         </button>
     }
 }

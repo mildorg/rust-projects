@@ -3,8 +3,8 @@ use std::fmt::{Display, Formatter, Result};
 /// The mild ui css prefix
 const STYLE_PREFIX: &str = "";
 
-pub fn style_prefix(identifier: &str, suffix: &str) -> String {
-    format!("{STYLE_PREFIX}{identifier}{suffix}")
+pub fn prefix(str: &str) -> String {
+    format!("{STYLE_PREFIX}{str}")
 }
 
 /// The mild ui size

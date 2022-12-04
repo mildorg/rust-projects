@@ -1,7 +1,7 @@
 use std::fmt::{Display, Formatter, Result};
 use yew::prelude::*;
 
-use crate::styles::{style_prefix, Color, Size};
+use crate::styles::{prefix, Color, Size};
 
 /// The html button type
 #[derive(PartialEq, Eq, Clone)]
@@ -60,13 +60,11 @@ pub fn get_styles(
     disabled: bool,
     class: &Classes,
 ) -> Classes {
-    let prefix = |s: &str| style_prefix("btn-", s);
-
     let variant = get_variant(variant, href);
-    let variant_color = prefix(&format!("{variant}-{color}"));
-    let size = prefix(&size.to_string());
+    let variant_style = prefix(&format!("btn-{variant}-{color}"));
+    let size_style = prefix(&format!("btn-{}", size));
 
-    let mut class_list = classes!("btn", variant_color, size, class.clone());
+    let mut class_list = classes!("btn", variant_style, size_style, class.clone());
 
     if disabled {
         class_list.push("disabled");
