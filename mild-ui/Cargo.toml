@@ -1,2 +1,12 @@
 [workspace]
 members = ["crates/*"]
+
+[profile.release]
+# less code to includt into binary
+panic = "abort"
+# optimization over all codebase
+codegen-units = 1
+# optimization for size
+opt-level = "z"
+# link time optimization using whole-program analysis
+lto = true

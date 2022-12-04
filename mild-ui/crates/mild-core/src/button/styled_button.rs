@@ -2,6 +2,7 @@ use yew::prelude::*;
 
 use super::helper::{get_styles, ButtonType, ButtonVariant};
 use super::ripple::Ripple;
+use super::ripple_wrapper::RippleWrapper;
 use crate::styles::{Color, Size};
 
 #[derive(Properties, PartialEq)]
@@ -17,8 +18,8 @@ pub struct Props {
     pub disabled: bool,
     /// If pass href prop, display a link button
     #[prop_or_default]
-    pub href: String,
-    pub id: Option<String>,
+    pub href: AttrValue,
+    pub id: Option<AttrValue>,
     #[prop_or(ButtonVariant::Outlined)]
     pub variant: ButtonVariant,
     #[prop_or_default]
@@ -54,9 +55,9 @@ pub fn Button(
     if !href.is_empty() {
         return html! {
             <a
-                id={id.clone()}
+                id={id}
                 class={styles}
-                href={href.clone()}
+                href={href}
                 onclick={handle_click}
             >
                 {child_list}
@@ -66,13 +67,13 @@ pub fn Button(
 
     html! {
         <button
-            id={id.clone()}
+            id={id}
             class={styles}
             disabled={*disabled}
             onclick={handle_click}
             type={button_type.to_string()}
         >
-            <Ripple/>
+            <RippleWrapper/>
             <div>{child_list}</div>
         </button>
     }

@@ -1,10 +1,16 @@
 {
   "cSpell.words": [
+    "bindgen",
     "gloo",
     "hotwatch",
     "Minifier",
     "necolas",
     "onclick",
+    "onmousedown",
+    "onmouseleave",
+    "onmouseup",
+    "powf",
+    "powi",
     "Routable",
     "stylelint",
     "tabindex"
