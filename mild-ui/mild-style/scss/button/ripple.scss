@@ -9,7 +9,6 @@
 }
 
 .ripple {
-  background-color: currentcolor;
   display: block;
   opacity: 1;
   pointer-events: none;
@@ -45,6 +44,11 @@
 
   &-entering {
     animation: item-entering $ripple-duration $ease-in-out;
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  &-entered {
     opacity: 0.3;
     transform: scale(1);
   }

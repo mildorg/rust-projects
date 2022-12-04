@@ -7,6 +7,10 @@ pub fn prefix(str: &str) -> String {
     format!("{STYLE_PREFIX}{str}")
 }
 
+pub fn prefixes(vec: &[&str]) -> Vec<String> {
+    vec.iter().map(|str| prefix(str)).collect()
+}
+
 /// The mild ui size
 #[derive(PartialEq, Eq, Clone)]
 pub enum Size {

@@ -1,4 +1,6 @@
+use std::cell::RefCell;
 use std::ops::Deref;
+use std::rc::Rc;
 
 use web_sys::{DomRect, HtmlElement};
 use yew::prelude::*;
@@ -6,7 +8,7 @@ use yew::virtual_dom::VNode;
 
 use super::ripple::Ripple;
 use crate::styles::prefix;
-use crate::utils::web::log;
+use crate::utils::web::timer::{clear_timeout, set_timeout};
 
 #[derive(PartialEq, Eq, Properties)]
 pub struct Props {
@@ -32,6 +34,7 @@ pub fn RippleWrapper(
     let ripples = use_state(Vec::new);
     let next_key = use_state_eq(|| 0);
     let container_ref = use_node_ref();
+    let clear_ref = use_mut_ref(|| 0);
     let classes = classes!(class.clone(), prefix("ripple_wrapper"));
 
     let handle_mouse_down = start(&container_ref, *center, *timeout, &next_key, &ripples);
@@ -42,8 +45,8 @@ pub fn RippleWrapper(
             ref={container_ref}
             class={classes}
             onmousedown={handle_mouse_down}
-            // onmouseup={stop(&ripples)}
-            onmouseleave={stop(&ripples)}
+            onmouseup={stop(&ripples,&clear_ref)}
+            onmouseleave={stop(&ripples,&clear_ref)}
             >
             {ripple_list}
         </@>
@@ -142,13 +145,25 @@ fn create_ripple(
     next_key.set(*next_key + 1);
 }
 
-fn stop(ripples: &UseStateHandle<Vec<VNode>>) -> Callback<MouseEvent> {
+fn stop(
+    ripples: &UseStateHandle<Vec<VNode>>,
+    clear_ref: &Rc<RefCell<i32>>,
+) -> Callback<MouseEvent> {
+    let clear_ref = clear_ref.clone();
     let ripples = ripples.clone();
 
-    Callback::from(move |e: MouseEvent| {
-        log::info(e.type_().as_str());
+    Callback::from(move |_| {
         if !ripples.is_empty() {
-            ripples.set(ripples[1..].to_vec())
+            let clone_clear_ref = clear_ref.clone();
+            let ripples = ripples.clone();
+
+            let clear = set_timeout(250, move || {
+                // clear the previous timer
+                clear_timeout(*clone_clear_ref.borrow());
+                ripples.set(ripples[1..].to_vec());
+            });
+
+            *clear_ref.borrow_mut() = clear;
         }
     })
 }

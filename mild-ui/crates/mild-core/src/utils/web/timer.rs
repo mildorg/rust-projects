@@ -8,8 +8,6 @@ pub(crate) fn clear_timeout(id: i32) {
 }
 
 /// Use setTimeout method from the js system
-pub(crate) fn set_timeout<F: 'static + FnOnce()>(timeout: u32, handler: F) -> impl FnOnce() {
-    let id = Timeout::new(timeout, handler).forget();
-
-    move || clear_timeout(id)
+pub(crate) fn set_timeout<F: 'static + FnOnce()>(timeout: u32, handler: F) -> i32 {
+    Timeout::new(timeout, handler).forget()
 }

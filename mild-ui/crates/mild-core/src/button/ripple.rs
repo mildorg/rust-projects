@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
-use crate::styles::prefix;
-use crate::utils::web::timer::set_timeout;
+use crate::styles::prefixes;
+use crate::utils::web::timer::{clear_timeout, set_timeout};
 
 #[derive(PartialEq, Properties)]
 pub struct Props {
@@ -30,11 +30,9 @@ pub fn Ripple(
     use_effect_with_deps(
         move |(exiting, timeout)| {
             let exiting = exiting.clone();
-            let clear = set_timeout(*timeout, move || exiting.set(true));
+            let timer_id = set_timeout(*timeout, move || exiting.set(true));
 
-            move || {
-                clear();
-            }
+            move || clear_timeout(timer_id)
         },
         (exiting.clone(), *timeout),
     );
@@ -50,23 +48,25 @@ pub fn Ripple(
 }
 
 fn get_class(exiting: bool) -> Classes {
-    let mut ripple_class = classes!(prefix("ripple"));
+    let mut ripple_class = vec!["ripple"];
 
     if exiting {
-        ripple_class.push(prefix("ripple-exiting"))
+        ripple_class.push("ripple-exiting")
     }
 
-    ripple_class
+    classes!(prefixes(&ripple_class))
 }
 
 fn get_item_class(exiting: bool) -> Classes {
-    let mut item_class = classes!(prefix("ripple_item"));
+    let mut item_class = vec!["ripple_item"];
 
     if !exiting {
-        item_class.push(prefix("ripple_item-entering"));
+        item_class.push("ripple_item-entering");
+    } else {
+        item_class.push("ripple_item-entered");
     }
 
-    item_class
+    classes!(prefixes(&item_class))
 }
 
 fn get_item_style(ripple_size: f64, ripple_x: f64, ripple_y: f64) -> String {
