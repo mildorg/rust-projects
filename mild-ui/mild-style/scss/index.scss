@@ -1,14 +1,16 @@
-// config variables
-@import './config/variables';
-
-// config reboot
-@import './config/reboot';
+//! Do not change the import order of the theme config
 
 // config functions
 @import './config/functions';
 
 // config mixin
 @import './config/mixin';
+
+// config variables
+@import './config/variables';
+
+// config reboot
+@import './config/reboot';
 
 // components
 @import './button/index';

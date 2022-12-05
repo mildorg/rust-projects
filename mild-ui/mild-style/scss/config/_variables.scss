@@ -479,7 +479,7 @@ $btn-font-family: $font-family-base !default;
 $btn-line-height: 1.25rem !default;
 
 $btn-font-size: $font-size-base * 0.875 !default;
-$btn-padding-y: 0.5rem !default;
+$btn-padding-y: rem(6px) !default;
 $btn-padding-x: 1rem !default;
 
 // different size button

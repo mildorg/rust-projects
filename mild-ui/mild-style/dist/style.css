@@ -424,7 +424,7 @@ main {
 .btn {
   border-radius: 0.25rem;
   font-size: 0.875rem;
-  padding: 0.5rem 1rem;
+  padding: 6px 1rem;
   align-items: center;
   background-image: none;
   border: 0;
@@ -436,7 +436,7 @@ main {
   justify-content: center;
   line-height: 1.25rem;
   min-height: 36px;
-  min-width: 5.5rem;
+  min-width: 64px;
   outline: none;
   overflow: hidden;
   position: relative;
