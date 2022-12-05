@@ -1,3 +1,5 @@
-target/*
 **/node_modules/*
-/crates/docs/dist
+
+# build bundles
+target/*
+/crates/mild-docs/dist/*
