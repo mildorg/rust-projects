@@ -1,13 +1,6 @@
 @import './ripple';
 
 .btn {
-  @include button-size(
-    $btn-padding-y,
-    $btn-padding-x,
-    $btn-font-size,
-    $border-radius
-  );
-
   align-items: center;
   background-image: none;
   border: 0;
@@ -18,7 +11,6 @@
   font-weight: $btn-font-weight;
   justify-content: center;
   line-height: $btn-line-height;
-  min-height: rem(36px);
   min-width: rem(64px);
   outline: none;
   overflow: hidden;
@@ -46,22 +38,54 @@
 }
 
 // button size
-.btn-large {
-  // @include button-size(
-  //   $btn-padding-y-lg,
-  //   $btn-padding-x-lg,
-  //   $btn-font-size-lg,
-  //   $border-radius-lg
-  // );
-}
-
-.btn-small {
-  @include button-size(
+$button-sizes: (
+  small: (
     $btn-padding-y-sm,
     $btn-padding-x-sm,
     $btn-font-size-sm,
-    $border-radius-sm
-  );
+    $border-radius-sm,
+  ),
+  medium: (
+    $btn-padding-y,
+    $btn-padding-x,
+    $btn-font-size,
+    $border-radius,
+  ),
+  large: (
+    $btn-padding-y-lg,
+    $btn-padding-x-lg,
+    $btn-font-size-lg,
+    $border-radius-lg,
+  ),
+  outlined-small: (
+    $btn-padding-outlined-y-sm,
+    $btn-padding-outlined-x-sm,
+    $btn-font-size-sm,
+    $border-radius-sm,
+  ),
+  outlined-medium: (
+    $btn-padding-outlined-y,
+    $btn-padding-outlined-x,
+    $btn-font-size,
+    $border-radius,
+  ),
+  outlined-large: (
+    $btn-padding-outlined-y-lg,
+    $btn-padding-outlined-x-lg,
+    $btn-font-size-lg,
+    $border-radius-lg,
+  ),
+);
+
+@each $name, $values in $button-sizes {
+  .btn-#{$name} {
+    @include button-size(
+      nth($values, 1),
+      nth($values, 2),
+      nth($values, 3),
+      nth($values, 4)
+    );
+  }
 }
 
 // contained button color
@@ -86,9 +110,6 @@
     );
 
     border: $btn-border-width solid;
-    height: rem(34px);
-    padding-left: calc($btn-padding-x - 1px);
-    padding-right: calc($btn-padding-x - 1px);
   }
 }
 

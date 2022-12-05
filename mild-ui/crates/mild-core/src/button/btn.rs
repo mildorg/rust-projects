@@ -2,7 +2,7 @@ use std::fmt::{Display, Formatter, Result};
 use yew::prelude::*;
 
 use super::ripple_wrapper::RippleWrapper;
-use crate::styles::{prefix, Color, Size};
+use crate::styles::{prefix, prefixes, Color, Size};
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
@@ -135,15 +135,20 @@ pub fn get_styles(
     disabled: bool,
     class: &Classes,
 ) -> Classes {
-    let variant = get_variant(variant, href);
-    let variant_style = prefix(&format!("btn-{variant}-{color}"));
-    let size_style = prefix(&format!("btn-{}", size));
+    let variant_style = format!("btn-{}-{color}", get_variant(variant, href));
+    let mut styles = vec!["btn", &variant_style];
 
-    let mut class_list = classes!("btn", variant_style, size_style, class.clone());
+    let size_style = if *variant == ButtonVariant::Outlined && href.is_empty() {
+        format!("btn-outlined-{size}")
+    } else {
+        format!("btn-{size}")
+    };
+
+    styles.push(&size_style);
 
     if disabled {
-        class_list.push("disabled");
+        styles.push("btn-disabled");
     }
 
-    class_list
+    classes!(prefixes(&styles), class.clone())
 }

@@ -476,20 +476,26 @@ $duration-leaving-screen: 195ms !default;
 // button variables
 $btn-font-weight: $font-weight-medium !default;
 $btn-font-family: $font-family-base !default;
-$btn-line-height: 1.25rem !default;
+$btn-line-height: rem(22px) !default;
 
-$btn-font-size: $font-size-base * 0.875 !default;
-$btn-padding-y: rem(6px) !default;
-$btn-padding-x: 1rem !default;
+$btn-font-size: rem(14px) !default;
+$btn-padding-y: rem(7px) !default;
+$btn-padding-x: rem(16px) !default;
+$btn-padding-outlined-y: rem(6px) !default;
+$btn-padding-outlined-x: rem(15px) !default;
 
 // different size button
-$btn-font-size-sm: $font-size-sm !default;
-$btn-padding-y-sm: 0.5rem !default;
-$btn-padding-x-sm: 0.5rem !default;
+$btn-font-size-sm: rem(13px) !default;
+$btn-padding-y-sm: rem(4px) !default;
+$btn-padding-x-sm: rem(10px) !default;
+$btn-padding-outlined-y-sm: rem(3px) !default;
+$btn-padding-outlined-x-sm: rem(9px) !default;
 
-$btn-font-size-lg: $font-size-lg !default;
-$btn-padding-y-lg: 0.5rem !default;
-$btn-padding-x-lg: 1.5rem !default;
+$btn-font-size-lg: rem(15px) !default;
+$btn-padding-y-lg: rem(10px) !default;
+$btn-padding-x-lg: rem(22px) !default;
+$btn-padding-outlined-y-lg: rem(9px) !default;
+$btn-padding-outlined-x-lg: rem(21px) !default;
 
 // button border
 $btn-border-width: $border-width !default;
