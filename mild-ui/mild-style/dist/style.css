@@ -370,7 +370,7 @@ main {
 
 .ripple_wrapper {
   bottom: 0;
-  display: inline-flex;
+  display: block;
   left: 0;
   overflow: hidden;
   position: absolute;
@@ -699,6 +699,16 @@ main {
   background: #12579b;
   color: #fff;
 }
+.btn-circle-primary.btn-small {
+  font-size: 20px;
+  height: 44px;
+  width: 44px;
+}
+.btn-circle-primary.btn-large {
+  font-size: 28px;
+  height: 68px;
+  width: 68px;
+}
 
 .btn-circle-secondary {
   background: #c2185b;
@@ -715,6 +725,16 @@ main {
 .btn-circle-secondary:hover {
   background: #8c1141;
   color: #fff;
+}
+.btn-circle-secondary.btn-small {
+  font-size: 20px;
+  height: 44px;
+  width: 44px;
+}
+.btn-circle-secondary.btn-large {
+  font-size: 28px;
+  height: 68px;
+  width: 68px;
 }
 
 .btn-circle-success {
@@ -733,6 +753,16 @@ main {
   background: #1e5020;
   color: #fff;
 }
+.btn-circle-success.btn-small {
+  font-size: 20px;
+  height: 44px;
+  width: 44px;
+}
+.btn-circle-success.btn-large {
+  font-size: 28px;
+  height: 68px;
+  width: 68px;
+}
 
 .btn-circle-info {
   background: #0097a7;
@@ -749,6 +779,16 @@ main {
 .btn-circle-info:hover {
   background: #00606a;
   color: #fff;
+}
+.btn-circle-info.btn-small {
+  font-size: 20px;
+  height: 44px;
+  width: 44px;
+}
+.btn-circle-info.btn-large {
+  font-size: 28px;
+  height: 68px;
+  width: 68px;
 }
 
 .btn-circle-warning {
@@ -767,6 +807,16 @@ main {
   background: #e6a604;
   color: #fff;
 }
+.btn-circle-warning.btn-small {
+  font-size: 20px;
+  height: 44px;
+  width: 44px;
+}
+.btn-circle-warning.btn-large {
+  font-size: 28px;
+  height: 68px;
+  width: 68px;
+}
 
 .btn-circle-error {
   background: #d32f2f;
@@ -783,6 +833,16 @@ main {
 .btn-circle-error:hover {
   background: #a22222;
   color: #fff;
+}
+.btn-circle-error.btn-small {
+  font-size: 20px;
+  height: 44px;
+  width: 44px;
+}
+.btn-circle-error.btn-large {
+  font-size: 28px;
+  height: 68px;
+  width: 68px;
 }
 
 .btn-link-primary {

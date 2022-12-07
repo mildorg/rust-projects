@@ -5,29 +5,29 @@ use mild_core::{
     styles::{Color, Size},
 };
 
-use crate::utils::string::to_first_upper;
+const COLORS: [Color; 6] = [
+    Color::Primary,
+    Color::Secondary,
+    Color::Success,
+    Color::Info,
+    Color::Warning,
+    Color::Error,
+];
 
-fn get_colors() -> Vec<Color> {
-    vec![
-        Color::Primary,
-        Color::Secondary,
-        Color::Success,
-        Color::Info,
-        Color::Warning,
-        Color::Error,
-    ]
-}
+const SIZES: [Size; 3] = [Size::Small, Size::Medium, Size::Large];
 
-fn render_variants_color_buttons() -> Vec<Html> {
-    let variants = vec![
-        ButtonVariant::Circle,
-        ButtonVariant::Contained,
-        ButtonVariant::Outlined,
-        ButtonVariant::Text,
-    ];
+const VARIANTS: [ButtonVariant; 4] = [
+    ButtonVariant::Circle,
+    ButtonVariant::Contained,
+    ButtonVariant::Outlined,
+    ButtonVariant::Text,
+];
+
+fn render_variants_color_buttons(size: Option<Size>) -> Vec<Html> {
+    let size = size.unwrap_or(Size::Medium);
 
     let get_buttons = |variant: &ButtonVariant| {
-        get_colors()
+        COLORS
             .iter()
             .map(|color| {
                 html! {
@@ -35,6 +35,7 @@ fn render_variants_color_buttons() -> Vec<Html> {
                         key={format!("{variant}-{color}")}
                         variant={variant.clone()}
                         color={color.clone()}
+                        size={size.clone()}
                     >
                         {
                             if *variant == ButtonVariant::Circle { String::from("√") }
@@ -46,7 +47,7 @@ fn render_variants_color_buttons() -> Vec<Html> {
             .collect::<Vec<Html>>()
     };
 
-    let buttons = variants
+    let buttons = VARIANTS
         .iter()
         .map(|variant| {
             html! {<div key={variant.to_string()} class="mb-4">{get_buttons(variant)}</div>}
@@ -57,7 +58,7 @@ fn render_variants_color_buttons() -> Vec<Html> {
 }
 
 fn render_link_buttons() -> Vec<Html> {
-    get_colors()
+    COLORS
         .into_iter()
         .map(|color| {
             html! {
@@ -74,35 +75,51 @@ fn render_link_buttons() -> Vec<Html> {
         .collect()
 }
 
-fn render_button_sizes() -> Vec<Html> {
-    let sizes = vec![Size::Small, Size::Medium, Size::Large];
+fn render_size_buttons() -> Vec<Html> {
+    let get_buttons = |variant: &ButtonVariant| {
+        SIZES
+            .into_iter()
+            .map(move |size| {
+                html! {
+                    <Button key={size.to_string()} variant={variant.clone()} size={size.clone()} >
+                        {
+                            if *variant == ButtonVariant::Circle { String::from("√") }
+                            else {size.to_string().to_uppercase()}
+                        }
+                    </Button>
+                }
+            })
+            .collect::<Vec<Html>>()
+    };
 
-    let buttons=  sizes.iter().map(|size| {
-        html! {
-            <Button key={size.to_string()} size={size.clone()}>{to_first_upper(&size.to_string())}</Button>
-        }
-    }).collect::<Vec<Html>>();
+    let buttons = VARIANTS
+        .iter()
+        .map(|variant| {
+            html! { <div key={variant.to_string()} class="mb-4">{get_buttons(variant)}</div>}
+        })
+        .collect();
 
-    let link_buttons =sizes.iter().map(|size| {
-        html! {
-            <Button href="#" key={size.to_string()} size={size.clone()} >{to_first_upper(&size.to_string())}</Button>
-        }
-    }).collect::<Vec<Html>>();
+    let link_buttons = SIZES
+        .iter()
+        .map(|size| {
+            html! {
+                <Button href="#" key={size.to_string()} size={size.clone()} >
+                    {size.to_string().to_uppercase()}
+                </Button>
+            }
+        })
+        .collect::<Vec<Html>>();
 
     [buttons, link_buttons].concat()
 }
 
 #[function_component]
 pub(crate) fn ButtonDoc() -> Html {
-    let danger = "Danger";
-    let primary = "Primary";
-    let link = "Link";
-
     html! {
         <div class="button-doc">
             <div class="section">
                 <h2>{"Variants & Colors"}</h2>
-                {render_variants_color_buttons()}
+                {render_variants_color_buttons(None)}
             </div>
 
             <div class="section">
@@ -112,18 +129,14 @@ pub(crate) fn ButtonDoc() -> Html {
 
             <div class="section">
                 <h2>{"Sizes"}</h2>
-                {render_button_sizes()}
-            </div>
-
-            <div class="section">
-                <h2>{"Danger state"}</h2>
-                <Button >{danger}</Button>
-                <Button href="#" >{link}</Button>
+                {render_size_buttons()}
             </div>
 
             <div class="section">
                 <h2>{"Event"}</h2>
-                <Button variant={ButtonVariant::Contained}>{primary}</Button>
+                <Button variant={ButtonVariant::Contained}>
+                    {Color::Primary.to_string().to_uppercase()}
+                </Button>
             </div>
         </div>
     }

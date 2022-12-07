@@ -2,7 +2,7 @@ use std::fmt::{Display, Formatter, Result};
 use yew::prelude::*;
 
 use super::ripple_wrapper::RippleWrapper;
-use crate::styles::{prefix, prefixes, Color, Size};
+use crate::styles::{prefixes, Color, Size};
 
 #[derive(Properties, PartialEq)]
 pub struct Props {

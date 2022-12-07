@@ -16,8 +16,6 @@ pub struct Props {
     pub class: Classes,
     #[prop_or_default]
     pub center: bool,
-    #[prop_or(AttrValue::from("div"))]
-    pub component: AttrValue,
     #[prop_or(500)]
     pub timeout: u32,
 }
@@ -27,7 +25,6 @@ pub fn RippleWrapper(
     Props {
         class,
         center,
-        component,
         timeout,
     }: &Props,
 ) -> Html {
@@ -51,7 +48,7 @@ pub fn RippleWrapper(
     );
 
     html! {
-        <@{component.to_string()}
+        <span
             ref={container_ref}
             class={classes}
             onmousedown={handle_mouse_down}
@@ -59,7 +56,7 @@ pub fn RippleWrapper(
             onmouseleave={stop(&ripples, &clear_ref, timeout)}
             >
             {ripple_list}
-        </@>
+        </span>
     }
 }
 

@@ -139,6 +139,18 @@ $button-sizes: (
     min-width: 0;
     padding: 0;
     width: rem(56px);
+
+    &.btn-small {
+      font-size: rem(20px);
+      height: rem(44px);
+      width: rem(44px);
+    }
+
+    &.btn-large {
+      font-size: rem(28px);
+      height: rem(68px);
+      width: rem(68px);
+    }
   }
 }
 
