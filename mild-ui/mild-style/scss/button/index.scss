@@ -1,42 +1,5 @@
 @import './ripple';
 
-.btn {
-  align-items: center;
-  background-image: none;
-  border: 0;
-  box-shadow: $btn-box-shadow;
-  color: $text-primary;
-  cursor: pointer;
-  display: inline-flex;
-  font-weight: $btn-font-weight;
-  justify-content: center;
-  line-height: $btn-line-height;
-  min-width: rem(64px);
-  outline: none;
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transition: $btn-transition;
-  vertical-align: middle;
-  white-space: nowrap;
-
-  &.disabled {
-    box-shadow: none;
-    cursor: default;
-    opacity: $btn-disabled-opacity;
-    pointer-events: none;
-  }
-
-  // button content
-  > div:first-child {
-    align-items: inherit;
-    display: inherit;
-    justify-content: inherit;
-    width: 100%;
-  }
-}
-
 // button size
 $button-sizes: (
   small: (
@@ -77,80 +40,140 @@ $button-sizes: (
   ),
 );
 
-@each $name, $values in $button-sizes {
-  .btn-#{$name} {
-    @include button-size(
-      nth($values, 1),
-      nth($values, 2),
-      nth($values, 3),
-      nth($values, 4)
-    );
-  }
-}
+.btn {
+  align-items: center;
+  background-image: none;
+  border: 0;
+  color: $text-primary;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: $btn-font-weight;
+  justify-content: center;
+  line-height: $btn-line-height;
+  min-width: rem(64px);
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: $btn-transition;
+  vertical-align: middle;
+  white-space: nowrap;
 
-// contained button color
-@each $name, $value in $theme-colors {
-  .btn-contained-#{$name} {
-    @if $name == 'warning' {
-      @include button-style($value, $text-primary);
-    } @else {
-      @include button-style($value, $white);
-    }
-  }
-}
-
-// outlined button color
-@each $name, $value in $theme-colors {
-  .btn-outlined-#{$name} {
-    @include button-style(
-      none,
-      $value,
-      fade-out($value, 0.5),
-      $hover-background: fade-out($value, $action-hover-fade-out)
-    );
-
-    border: $btn-border-width solid;
-  }
-}
-
-// text button color
-@each $name, $value in $theme-colors {
-  .btn-text-#{$name} {
-    @include button-style(
-      none,
-      $value,
-      unset,
-      $hover-background: fade-out($value, $action-hover-fade-out)
-    );
-
+  &.disabled {
     box-shadow: none;
+    cursor: default;
+    opacity: $btn-disabled-opacity;
+    pointer-events: none;
+  }
+
+  // button content
+  > div:first-child {
+    align-items: inherit;
+    display: inherit;
+    justify-content: inherit;
+    width: 100%;
+  }
+
+  // button size
+  @each $name, $values in $button-sizes {
+    &-#{$name} {
+      @include button-size(
+        nth($values, 1),
+        nth($values, 2),
+        nth($values, 3),
+        nth($values, 4)
+      );
+    }
+  }
+
+  // button elevation
+  &-elevation {
+    box-shadow: shadow(2);
+
+    &:hover {
+      box-shadow: shadow(4);
+    }
+
+    &:active {
+      box-shadow: shadow(8);
+    }
   }
 }
 
-// circle button color
-@each $name, $value in $theme-colors {
-  .btn-circle-#{$name} {
-    @include button-style($value, $white);
-
-    border-radius: 50%;
-    font-size: rem(24px);
-    height: rem(56px);
-    line-height: unset;
-    min-width: 0;
-    padding: 0;
-    width: rem(56px);
-
-    &.btn-small {
-      font-size: rem(20px);
-      height: rem(44px);
-      width: rem(44px);
+// contained button
+.btn-contained {
+  // contained button color
+  @each $name, $value in $theme-colors {
+    &-#{$name} {
+      @if $name == 'warning' {
+        @include button-style($value, $text-primary);
+      } @else {
+        @include button-style($value, $white);
+      }
     }
+  }
+}
 
-    &.btn-large {
-      font-size: rem(28px);
-      height: rem(68px);
-      width: rem(68px);
+// outlined button
+.btn-outlined {
+  // outlined button color
+  @each $name, $value in $theme-colors {
+    &-#{$name} {
+      @include button-style(
+        none,
+        $value,
+        fade-out($value, 0.5),
+        $hover-background: fade-out($value, $action-hover-fade-out)
+      );
+
+      border: $btn-border-width solid;
     }
+  }
+}
+
+// text button
+.btn-text {
+  // text button color
+  @each $name, $value in $theme-colors {
+    &-#{$name} {
+      @include button-style(
+        none,
+        $value,
+        unset,
+        $hover-background: fade-out($value, $action-hover-fade-out)
+      );
+    }
+  }
+}
+
+// circle button
+.btn-circle {
+  // circle button color
+  @each $name, $value in $theme-colors {
+    &-#{$name} {
+      @include button-style($value, $white);
+
+      border-radius: 50%;
+      font-size: rem(24px);
+      height: rem(56px);
+      line-height: unset;
+      min-width: 0;
+      padding: 0;
+      width: rem(56px);
+    }
+  }
+
+  &-small {
+    font-size: rem(20px);
+    height: rem(44px);
+    width: rem(44px);
+  }
+
+  &-large {
+    font-size: rem(28px);
+    height: rem(68px);
+    width: rem(68px);
   }
 }
 
@@ -158,7 +181,5 @@ $button-sizes: (
 @each $name, $value in $theme-colors {
   .btn-link-#{$name} {
     @include button-style(none, $value, unset, none);
-
-    box-shadow: none;
   }
 }

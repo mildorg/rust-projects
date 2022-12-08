@@ -15,6 +15,9 @@ pub struct Props {
     pub color: Color,
     #[prop_or_default]
     pub disabled: bool,
+    /// If true, enable circle and contained button elevation
+    #[prop_or(true)]
+    pub elevation: bool,
     /// If pass href prop, display a link button
     #[prop_or_default]
     pub href: AttrValue,
@@ -35,6 +38,7 @@ pub fn Button(
         class,
         color,
         disabled,
+        elevation,
         href,
         id,
         variant,
@@ -42,7 +46,15 @@ pub fn Button(
         size,
     }: &Props,
 ) -> Html {
-    let styles = get_styles(variant, color, size, href, *disabled, class);
+    let styles = get_styles(Styles {
+        class,
+        color,
+        href,
+        size,
+        variant,
+        disabled: *disabled,
+        elevation: *elevation,
+    });
 
     let child_list = children.iter().collect::<Html>();
 
@@ -51,7 +63,7 @@ pub fn Button(
         Callback::from(move |event| onclick.emit(event))
     };
 
-    if !href.is_empty() {
+    if is_link(href) {
         return html! {
             <a
                 id={id}
@@ -119,32 +131,62 @@ impl Display for ButtonVariant {
     }
 }
 
+// is link button
+fn is_link(href: &str) -> bool {
+    !href.is_empty()
+}
+
 // button style
-fn get_variant(variant: &ButtonVariant, href: &str) -> String {
-    match href.is_empty() {
-        true => variant.to_string(),
-        false => "link".to_string(),
+fn get_variant_style(variant: &ButtonVariant, href: &str) -> String {
+    match is_link(href) {
+        true => "link".to_string(),
+        false => variant.to_string(),
     }
 }
 
-pub fn get_styles(
-    variant: &ButtonVariant,
-    color: &Color,
-    size: &Size,
-    href: &str,
+fn get_size_style(size: &Size, variant: &ButtonVariant, href: &str) -> String {
+    let default = format!("btn-{size}");
+
+    if is_link(href) {
+        return default;
+    }
+
+    match variant {
+        ButtonVariant::Circle => format!("btn-{}-{}", variant, size),
+        ButtonVariant::Outlined => format!("btn-{}-{}", variant, size),
+        _ => default,
+    }
+}
+
+struct Styles<'a> {
+    class: &'a Classes,
+    color: &'a Color,
     disabled: bool,
-    class: &Classes,
+    elevation: bool,
+    href: &'a str,
+    size: &'a Size,
+    variant: &'a ButtonVariant,
+}
+
+fn get_styles(
+    Styles {
+        class,
+        color,
+        disabled,
+        elevation,
+        href,
+        size,
+        variant,
+    }: Styles,
 ) -> Classes {
-    let variant_style = format!("btn-{}-{color}", get_variant(variant, href));
-    let mut styles = vec!["btn", &variant_style];
+    let size_style = get_size_style(size, variant, href);
+    let variant_style = format!("btn-{}-{color}", get_variant_style(variant, href));
 
-    let size_style = if *variant == ButtonVariant::Outlined && href.is_empty() {
-        format!("btn-outlined-{size}")
-    } else {
-        format!("btn-{size}")
-    };
+    let mut styles = vec!["btn", &size_style, &variant_style];
 
-    styles.push(&size_style);
+    if elevation && *variant == ButtonVariant::Circle || *variant == ButtonVariant::Contained {
+        styles.push("btn-elevation");
+    }
 
     if disabled {
         styles.push("btn-disabled");

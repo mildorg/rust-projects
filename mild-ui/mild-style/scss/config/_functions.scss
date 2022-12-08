@@ -1,3 +1,27 @@
 @function rem($px: string) {
   @return calc($px / $font-size-base) * 1rem;
 }
+
+// Generate the shadow for mild-ui. The shadow is following material design
+@function shadow($n: number) {
+  @if $n < 0 or $n > 24 {
+    @error 'The $n for shadow function should: " 0<= $n <= 24"';
+  }
+
+  @if $n == 0 {
+    @return none;
+  }
+
+  $a: nth($shadows, $n);
+
+  $s-1: #{nth($a, 1)}px #{nth($a, 2)}px #{nth($a, 3)}px #{nth($a, 4)}px
+    $shadow-umbra-color;
+
+  $s-2: #{nth($a, 5)}px #{nth($a, 6)}px #{nth($a, 7)}px #{nth($a, 8)}px
+    $shadow-penumbra-color;
+
+  $s-3: #{nth($a, 9)}px #{nth($a, 10)}px #{nth($a, 11)}px #{nth($a, 12)}px
+    $shadow-ambient-color;
+
+  @return $s-1, $s-2, $s-3;
+}
