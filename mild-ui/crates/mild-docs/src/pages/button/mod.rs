@@ -1,3 +1,4 @@
+use gloo_console::log;
 use yew::prelude::*;
 
 use mild_core::{
@@ -115,6 +116,11 @@ fn render_size_buttons() -> Vec<Html> {
 
 #[function_component]
 pub(crate) fn ButtonDoc() -> Html {
+    let handle_click = Callback::from(move |e: MouseEvent| {
+        let info = format!("Action: {}", e.type_());
+        log!(info);
+    });
+
     html! {
         <div class="button-doc">
             <div class="section">
@@ -134,7 +140,8 @@ pub(crate) fn ButtonDoc() -> Html {
 
             <div class="section">
                 <h2>{"Event"}</h2>
-                <Button variant={ButtonVariant::Contained}>
+                <p>{"Open the browser console, click the button and see what happened."}</p>
+                <Button variant={ButtonVariant::Contained} onclick={handle_click}>
                     {Color::Primary.to_string().to_uppercase()}
                 </Button>
             </div>

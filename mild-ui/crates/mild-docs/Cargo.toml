@@ -7,5 +7,9 @@ edition = "2021"
 
 [dependencies]
 mild-core = {path = "../mild-core"}
-yew = {version = "0.20.0",  features = ["csr"]}
+gloo-console = "0.2.3"
 yew-router = "0.17.0"
+yew = {version = "0.20.0",  features = ["csr"]}
+
+[dependencies.web-sys]
+version = "^0.3.60"
