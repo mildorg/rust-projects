@@ -2,7 +2,7 @@ use gloo_console::log;
 use yew::prelude::*;
 
 use mild_core::{
-    button::{Button, ButtonVariant},
+    button::{Button, ButtonTag, ButtonVariant},
     styles::{Color, Size},
 };
 
@@ -134,16 +134,24 @@ pub(crate) fn ButtonDoc() -> Html {
             </div>
 
             <div class="section">
-                <h2>{"Sizes"}</h2>
+                <h2>{"Button sizes"}</h2>
                 {render_size_buttons()}
             </div>
 
             <div class="section">
-                <h2>{"Event"}</h2>
+                <h2>{"Button events"}</h2>
                 <p>{"Open the browser console, click the button and see what happened."}</p>
                 <Button variant={ButtonVariant::Contained} onclick={handle_click}>
                     {Color::Primary.to_string().to_uppercase()}
                 </Button>
+            </div>
+
+            <div class="section">
+                <h2>{"Button Tags"}</h2>
+                <Button tag={ButtonTag::Div}>{"Div"}</Button>
+                <Button tag={ButtonTag::Span}>{"Span"}</Button>
+                <Button tag={ButtonTag::Button}>{"Button"}</Button>
+                <Button href="#">{"Link"}</Button>
             </div>
         </div>
     }

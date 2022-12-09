@@ -28,6 +28,8 @@ pub struct Props {
     pub onclick: Callback<MouseEvent>,
     #[prop_or(Size::Medium)]
     pub size: Size,
+    #[prop_or(ButtonTag::Button)]
+    pub tag: ButtonTag,
 }
 
 #[function_component]
@@ -44,50 +46,59 @@ pub fn Button(
         variant,
         onclick,
         size,
+        tag,
     }: &Props,
 ) -> Html {
+    let child_list = children.iter().collect::<Html>();
+    let is_link = !href.is_empty();
+    let tag = get_tag(tag, is_link);
+
     let styles = get_styles(Styles {
         class,
         color,
-        href,
+        is_link,
         size,
         variant,
         disabled: *disabled,
         elevation: *elevation,
     });
 
-    let child_list = children.iter().collect::<Html>();
-
     let handle_click = {
         let onclick = onclick.clone();
         Callback::from(move |event| onclick.emit(event))
     };
 
-    if is_link(href) {
-        return html! {
-            <a
-                id={id}
-                class={styles}
-                href={href}
-                onclick={handle_click}
-            >
-                {child_list}
-            </a>
-        };
-    }
+    let (href, button_type, ripple) = if is_link {
+        (Some(href.clone()), None, None)
+    } else {
+        (
+            None,
+            Some(button_type.to_string()),
+            Some(html! {<RippleWrapper />}),
+        )
+    };
 
     html! {
-        <button
+        <@{tag}
             id={id}
             class={styles}
+            href={href}
             disabled={*disabled}
             onclick={handle_click}
-            type={button_type.to_string()}
+            type={button_type}
         >
             <div>{child_list}</div>
-            <RippleWrapper />
-        </button>
+            {ripple}
+        </@>
     }
+}
+
+/// The html tag for Button component
+#[derive(PartialEq, Eq, Clone)]
+pub enum ButtonTag {
+    Div,
+    Span,
+    Button,
 }
 
 /// The html button type
@@ -131,23 +142,33 @@ impl Display for ButtonVariant {
     }
 }
 
-// is link button
-fn is_link(href: &str) -> bool {
-    !href.is_empty()
+/// button tag
+fn get_tag(tag: &ButtonTag, is_link: bool) -> String {
+    let html_tag = if is_link {
+        "a"
+    } else {
+        match tag {
+            ButtonTag::Div => "div",
+            ButtonTag::Span => "span",
+            ButtonTag::Button => "button",
+        }
+    };
+
+    String::from(html_tag)
 }
 
 // button style
-fn get_variant_style(variant: &ButtonVariant, href: &str) -> String {
-    match is_link(href) {
+fn get_variant_style(variant: &ButtonVariant, is_link: bool) -> String {
+    match is_link {
         true => "link".to_string(),
         false => variant.to_string(),
     }
 }
 
-fn get_size_style(size: &Size, variant: &ButtonVariant, href: &str) -> String {
+fn get_size_style(size: &Size, variant: &ButtonVariant, is_link: bool) -> String {
     let default = format!("btn-{size}");
 
-    if is_link(href) {
+    if is_link {
         return default;
     }
 
@@ -163,7 +184,7 @@ struct Styles<'a> {
     color: &'a Color,
     disabled: bool,
     elevation: bool,
-    href: &'a str,
+    is_link: bool,
     size: &'a Size,
     variant: &'a ButtonVariant,
 }
@@ -174,13 +195,13 @@ fn get_styles(
         color,
         disabled,
         elevation,
-        href,
+        is_link,
         size,
         variant,
     }: Styles,
 ) -> Classes {
-    let size_style = get_size_style(size, variant, href);
-    let variant_style = format!("btn-{}-{color}", get_variant_style(variant, href));
+    let size_style = get_size_style(size, variant, is_link);
+    let variant_style = format!("btn-{}-{color}", get_variant_style(variant, is_link));
 
     let mut styles = vec!["btn", &size_style, &variant_style];
 

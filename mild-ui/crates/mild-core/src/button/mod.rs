@@ -3,4 +3,4 @@ mod btn;
 pub(crate) mod ripple;
 pub(crate) mod ripple_wrapper;
 
-pub use self::btn::{Button, ButtonType, ButtonVariant};
+pub use self::btn::{Button, ButtonTag, ButtonType, ButtonVariant};
