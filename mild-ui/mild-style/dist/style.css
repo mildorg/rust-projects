@@ -441,9 +441,7 @@ main {
   vertical-align: middle;
   white-space: nowrap;
 }
-.btn.disabled {
-  box-shadow: none;
-  cursor: default;
+.btn-disabled {
   opacity: 0.6;
   pointer-events: none;
 }

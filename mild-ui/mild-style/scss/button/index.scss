@@ -60,9 +60,7 @@ $button-sizes: (
   vertical-align: middle;
   white-space: nowrap;
 
-  &.disabled {
-    box-shadow: none;
-    cursor: default;
+  &-disabled {
     opacity: $btn-disabled-opacity;
     pointer-events: none;
   }

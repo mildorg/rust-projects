@@ -19,8 +19,7 @@ pub struct Props {
     #[prop_or(true)]
     pub elevation: bool,
     /// If pass href prop, display a link button
-    #[prop_or_default]
-    pub href: AttrValue,
+    pub href: Option<AttrValue>,
     pub id: Option<AttrValue>,
     #[prop_or(ButtonVariant::Outlined)]
     pub variant: ButtonVariant,
@@ -49,41 +48,49 @@ pub fn Button(
         tag,
     }: &Props,
 ) -> Html {
+    let disabled = *disabled;
+    let is_link = !href.is_none();
+    let tag = get_html_tag(tag, is_link);
     let child_list = children.iter().collect::<Html>();
-    let is_link = !href.is_empty();
-    let tag = get_tag(tag, is_link);
 
     let styles = get_styles(Styles {
         class,
         color,
+        disabled,
         is_link,
         size,
         variant,
-        disabled: *disabled,
         elevation: *elevation,
     });
 
-    let handle_click = {
-        let onclick = onclick.clone();
-        Callback::from(move |event| onclick.emit(event))
+    let button_type = if tag == "button" {
+        Some(button_type.to_string())
+    } else {
+        None
     };
 
-    let (href, button_type, ripple) = if is_link {
-        (Some(href.clone()), None, None)
-    } else {
-        (
-            None,
-            Some(button_type.to_string()),
-            Some(html! {<RippleWrapper />}),
-        )
+    let ripple = html! {
+        if !is_link && !disabled { <RippleWrapper/>}
     };
+
+    let handle_click = {
+        let onclick = onclick.clone();
+
+        Callback::from(move |event| {
+            if !disabled {
+                onclick.emit(event)
+            }
+        })
+    };
+
+    // let
 
     html! {
         <@{tag}
             id={id}
             class={styles}
             href={href}
-            disabled={*disabled}
+            disabled={disabled}
             onclick={handle_click}
             type={button_type}
         >
@@ -143,7 +150,7 @@ impl Display for ButtonVariant {
 }
 
 /// button tag
-fn get_tag(tag: &ButtonTag, is_link: bool) -> String {
+fn get_html_tag(tag: &ButtonTag, is_link: bool) -> String {
     let html_tag = if is_link {
         "a"
     } else {

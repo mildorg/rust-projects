@@ -24,6 +24,10 @@ const VARIANTS: [ButtonVariant; 4] = [
     ButtonVariant::Text,
 ];
 
+fn to_upper<T: ToString>(s: &T) -> String {
+    s.to_string().to_uppercase()
+}
+
 fn render_variants_color_buttons(size: Option<Size>) -> Vec<Html> {
     let size = size.unwrap_or(Size::Medium);
 
@@ -40,7 +44,7 @@ fn render_variants_color_buttons(size: Option<Size>) -> Vec<Html> {
                     >
                         {
                             if *variant == ButtonVariant::Circle { String::from("√") }
-                            else {color.to_string().to_uppercase()}
+                            else {to_upper(color)}
                         }
                     </Button>
                 }
@@ -60,16 +64,16 @@ fn render_variants_color_buttons(size: Option<Size>) -> Vec<Html> {
 
 fn render_link_buttons() -> Vec<Html> {
     COLORS
-        .into_iter()
+        .iter()
         .map(|color| {
             html! {
                 <Button
-                    href="#link-buttons"
+                    href="#link-button"
                     id={color.to_string()}
                     key={color.to_string()}
                     color={color.clone()}
                 >
-                     {color.to_string().to_uppercase()}
+                     {to_upper(color)}
                 </Button>
             }
         })
@@ -79,13 +83,13 @@ fn render_link_buttons() -> Vec<Html> {
 fn render_size_buttons() -> Vec<Html> {
     let get_buttons = |variant: &ButtonVariant| {
         SIZES
-            .into_iter()
+            .iter()
             .map(move |size| {
                 html! {
                     <Button key={size.to_string()} variant={variant.clone()} size={size.clone()} >
                         {
                             if *variant == ButtonVariant::Circle { String::from("√") }
-                            else {size.to_string().to_uppercase()}
+                            else {to_upper(&size)}
                         }
                     </Button>
                 }
@@ -104,8 +108,8 @@ fn render_size_buttons() -> Vec<Html> {
         .iter()
         .map(|size| {
             html! {
-                <Button href="#" key={size.to_string()} size={size.clone()} >
-                    {size.to_string().to_uppercase()}
+                <Button href="#button-size" key={size.to_string()} size={size.clone()} >
+                    {to_upper(size)}
                 </Button>
             }
         })
@@ -124,7 +128,7 @@ pub(crate) fn ButtonDoc() -> Html {
     html! {
         <div class="button-doc">
             <div class="section">
-                <h2>{"Variants & Colors"}</h2>
+                <h2 id="variants-colors">{"Variants & Colors"}</h2>
                 {render_variants_color_buttons(None)}
             </div>
 
@@ -134,7 +138,7 @@ pub(crate) fn ButtonDoc() -> Html {
             </div>
 
             <div class="section">
-                <h2>{"Button sizes"}</h2>
+                <h2 id="button-size">{"Button sizes"}</h2>
                 {render_size_buttons()}
             </div>
 
@@ -142,16 +146,25 @@ pub(crate) fn ButtonDoc() -> Html {
                 <h2>{"Button events"}</h2>
                 <p>{"Open the browser console, click the button and see what happened."}</p>
                 <Button variant={ButtonVariant::Contained} onclick={handle_click}>
-                    {Color::Primary.to_string().to_uppercase()}
+                    {to_upper(&Color::Primary)}
                 </Button>
             </div>
 
             <div class="section">
-                <h2>{"Button Tags"}</h2>
+                <h2>{"Disabled States"}</h2>
+                <Button disabled={true} tag={ButtonTag::Span} variant={ButtonVariant::Circle}>{"√"}</Button>
+                <Button disabled={true} tag={ButtonTag::Div} variant={ButtonVariant::Contained}>{to_upper(&ButtonVariant::Contained)}</Button>
+                <Button disabled={true} >{to_upper(&ButtonVariant::Outlined)}</Button>
+                <Button disabled={true} variant={ButtonVariant::Text}>{to_upper(&ButtonVariant::Text)}</Button>
+                <Button disabled={true} href="#">{"Link"}</Button>
+            </div>
+
+            <div class="section">
+                <h2 id="button-tag">{"Button Tags"}</h2>
                 <Button tag={ButtonTag::Div}>{"Div"}</Button>
                 <Button tag={ButtonTag::Span}>{"Span"}</Button>
                 <Button tag={ButtonTag::Button}>{"Button"}</Button>
-                <Button href="#">{"Link"}</Button>
+                <Button href="#button-tag">{"Link"}</Button>
             </div>
         </div>
     }
