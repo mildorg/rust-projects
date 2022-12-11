@@ -60,6 +60,10 @@ $button-sizes: (
   vertical-align: middle;
   white-space: nowrap;
 
+  &:focus-visible {
+    outline: none;
+  }
+
   &-disabled {
     opacity: $btn-disabled-opacity;
     pointer-events: none;
@@ -103,7 +107,7 @@ $button-sizes: (
 .btn-contained {
   // contained button color
   @each $name, $value in $theme-colors {
-    &-#{$name} {
+    &.btn-#{$name} {
       @if $name == 'warning' {
         @include button-style($value, $text-primary);
       } @else {
@@ -115,17 +119,17 @@ $button-sizes: (
 
 // outlined button
 .btn-outlined {
+  border: $btn-border-width solid;
+
   // outlined button color
   @each $name, $value in $theme-colors {
-    &-#{$name} {
+    &.btn-#{$name} {
       @include button-style(
         none,
         $value,
         fade-out($value, 0.5),
         $hover-background: fade-out($value, $action-hover-fade-out)
       );
-
-      border: $btn-border-width solid;
     }
   }
 }
@@ -134,7 +138,7 @@ $button-sizes: (
 .btn-text {
   // text button color
   @each $name, $value in $theme-colors {
-    &-#{$name} {
+    &.btn-#{$name} {
       @include button-style(
         none,
         $value,
@@ -147,21 +151,15 @@ $button-sizes: (
 
 // circle button
 .btn-circle {
-  // circle button color
-  @each $name, $value in $theme-colors {
-    &-#{$name} {
-      @include button-style($value, $white);
+  border-radius: 50%;
+  font-size: rem(24px);
+  height: rem(56px);
+  line-height: unset;
+  min-width: 0;
+  padding: 0;
+  width: rem(56px);
 
-      border-radius: 50%;
-      font-size: rem(24px);
-      height: rem(56px);
-      line-height: unset;
-      min-width: 0;
-      padding: 0;
-      width: rem(56px);
-    }
-  }
-
+  // circle button size
   &-small {
     font-size: rem(20px);
     height: rem(44px);
@@ -173,11 +171,25 @@ $button-sizes: (
     height: rem(68px);
     width: rem(68px);
   }
+
+  // circle button color
+  @each $name, $value in $theme-colors {
+    &.btn-#{$name} {
+      @include button-style($value, $white);
+    }
+  }
 }
 
-// link button color
-@each $name, $value in $theme-colors {
-  .btn-link-#{$name} {
-    @include button-style(none, $value, unset, none);
+// link button
+.btn-link {
+  &:focus {
+    text-decoration: underline;
+  }
+
+  // link button color
+  @each $name, $value in $theme-colors {
+    &.btn-#{$name} {
+      @include button-style(none, $value, unset, none);
+    }
   }
 }

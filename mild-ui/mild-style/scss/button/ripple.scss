@@ -3,6 +3,7 @@
   display: block;
   left: 0;
   overflow: hidden;
+  pointer-events: none;
   position: absolute;
   right: 0;
   top: 0;
@@ -11,13 +12,20 @@
 .ripple {
   display: block;
   opacity: 0;
-  pointer-events: none;
   position: absolute;
 
   &-visible {
     animation: ripple-visible $ripple-duration $ease-in-out;
     opacity: 0.6;
     transform: scale(1);
+  }
+
+  // when focus button, use the bubble style
+  &-bubble {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
   }
 }
 
@@ -47,6 +55,13 @@
     animation: item-entering $ripple-duration $ease-in-out;
     opacity: 0.3;
   }
+
+  &-bubble {
+    animation: item-bubble 2500ms $ease-in-out 200ms infinite;
+    height: 55%;
+    opacity: 0.3;
+    width: 55%;
+  }
 }
 
 // ripple item entering animation
@@ -57,5 +72,23 @@
 
   100% {
     opacity: 0.3;
+  }
+}
+
+// ripple item bubble animation
+@keyframes item-bubble {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
   }
 }

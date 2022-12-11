@@ -126,7 +126,7 @@ pub(crate) fn ButtonDoc() -> Html {
     });
 
     let handle_keydown = Callback::from(move |e: KeyboardEvent| {
-        e.prevent_default();
+        // e.prevent_default();
         let info = format!(r#"key: "{}", key code: "{}""#, e.key(), e.key_code());
         log!(info);
     });
