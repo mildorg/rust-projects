@@ -10,53 +10,44 @@ use super::ripple::Ripple;
 use crate::styles::prefix;
 use crate::utils::web::timer::{clear_timeout, set_timeout};
 
-#[derive(PartialEq, Eq, Properties)]
-pub struct Props {
-    #[prop_or_default]
-    pub class: Classes,
-    #[prop_or_default]
-    pub center: bool,
-    #[prop_or(500)]
-    pub timeout: u32,
+pub struct UseRipple {
+    pub ripple_wrapper: VNode,
+    pub start: Callback<MouseEvent>,
+    pub stop: Callback<MouseEvent>,
 }
 
-#[function_component()]
-pub fn RippleWrapper(
-    Props {
-        class,
-        center,
-        timeout,
-    }: &Props,
-) -> Html {
+#[hook]
+pub fn use_ripple(class: Option<Classes>, center: bool, timeout: Option<u32>) -> UseRipple {
     let ripples = use_state(Vec::new);
     let next_key = use_state_eq(|| 0);
     let container_ref = use_node_ref();
     let clear_ref = use_mut_ref(|| 0);
 
-    let timeout = *timeout;
-    let classes = classes!(class.clone(), prefix("ripple_wrapper"));
-
-    let handle_mouse_down = start(&container_ref, *center, &next_key, &ripples);
+    let timeout = timeout.unwrap_or(500);
+    let classes = classes!(class, prefix("ripple_wrapper"));
     let ripple_list = (*ripples).clone().into_iter().collect::<Vec<VNode>>();
+
+    let stop = stop(&ripples, &clear_ref, timeout);
+    let start = start(&container_ref, center, &next_key, &ripples);
 
     use_effect_with_deps(
         |clear_ref| {
             let clear_ref = clear_ref.clone();
             move || clear_timeout(*clear_ref.borrow())
         },
-        clear_ref.clone(),
+        clear_ref,
     );
 
-    html! {
-        <span
-            ref={container_ref}
-            class={classes}
-            onmousedown={handle_mouse_down}
-            onmouseup={stop(&ripples, &clear_ref, timeout)}
-            onmouseleave={stop(&ripples, &clear_ref, timeout)}
-            >
+    let ripple_wrapper = html! {
+        <span ref={container_ref} class={classes} >
             {ripple_list}
         </span>
+    };
+
+    UseRipple {
+        start,
+        stop,
+        ripple_wrapper,
     }
 }
 

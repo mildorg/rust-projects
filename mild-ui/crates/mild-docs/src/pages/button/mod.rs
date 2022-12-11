@@ -2,7 +2,7 @@ use gloo_console::log;
 use yew::prelude::*;
 
 use mild_core::{
-    button::{Button, ButtonTag, ButtonVariant},
+    button::{Button, ButtonVariant},
     styles::{Color, Size},
 };
 
@@ -125,6 +125,12 @@ pub(crate) fn ButtonDoc() -> Html {
         log!(info);
     });
 
+    let handle_keydown = Callback::from(move |e: KeyboardEvent| {
+        e.prevent_default();
+        let info = format!(r#"key: "{}", key code: "{}""#, e.key(), e.key_code());
+        log!(info);
+    });
+
     html! {
         <div class="button-doc">
             <div class="section">
@@ -145,15 +151,15 @@ pub(crate) fn ButtonDoc() -> Html {
             <div class="section">
                 <h2>{"Button events"}</h2>
                 <p>{"Open the browser console, click the button and see what happened."}</p>
-                <Button variant={ButtonVariant::Contained} onclick={handle_click}>
+                <Button variant={ButtonVariant::Contained} onclick={handle_click} onkeydown={handle_keydown}>
                     {to_upper(&Color::Primary)}
                 </Button>
             </div>
 
             <div class="section">
                 <h2>{"Disabled States"}</h2>
-                <Button disabled={true} tag={ButtonTag::Span} variant={ButtonVariant::Circle}>{"√"}</Button>
-                <Button disabled={true} tag={ButtonTag::Div} variant={ButtonVariant::Contained}>{to_upper(&ButtonVariant::Contained)}</Button>
+                <Button disabled={true} tag="span" variant={ButtonVariant::Circle}>{"√"}</Button>
+                <Button disabled={true} tag="div" variant={ButtonVariant::Contained}>{to_upper(&ButtonVariant::Contained)}</Button>
                 <Button disabled={true} >{to_upper(&ButtonVariant::Outlined)}</Button>
                 <Button disabled={true} variant={ButtonVariant::Text}>{to_upper(&ButtonVariant::Text)}</Button>
                 <Button disabled={true} href="#">{"Link"}</Button>
@@ -161,9 +167,9 @@ pub(crate) fn ButtonDoc() -> Html {
 
             <div class="section">
                 <h2 id="button-tag">{"Button Tags"}</h2>
-                <Button tag={ButtonTag::Div}>{"Div"}</Button>
-                <Button tag={ButtonTag::Span}>{"Span"}</Button>
-                <Button tag={ButtonTag::Button}>{"Button"}</Button>
+                <Button tag="div">{"Div"}</Button>
+                <Button tag="span">{"Span"}</Button>
+                <Button tag="button">{"Button"}</Button>
                 <Button href="#button-tag">{"Link"}</Button>
             </div>
         </div>

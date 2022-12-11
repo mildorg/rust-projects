@@ -1,7 +1,7 @@
 use std::fmt::{Display, Formatter, Result};
-use yew::prelude::*;
+use yew::{prelude::*, virtual_dom::VNode};
 
-use super::ripple_wrapper::RippleWrapper;
+use super::use_ripple::{use_ripple, UseRipple};
 use crate::styles::{prefixes, Color, Size};
 
 #[derive(Properties, PartialEq)]
@@ -25,10 +25,12 @@ pub struct Props {
     pub variant: ButtonVariant,
     #[prop_or_default]
     pub onclick: Callback<MouseEvent>,
+    #[prop_or_default]
+    pub onkeydown: Callback<KeyboardEvent>,
     #[prop_or(Size::Medium)]
     pub size: Size,
-    #[prop_or(ButtonTag::Button)]
-    pub tag: ButtonTag,
+    #[prop_or(AttrValue::from("button"))]
+    pub tag: AttrValue,
 }
 
 #[function_component]
@@ -44,10 +46,17 @@ pub fn Button(
         id,
         variant,
         onclick,
+        onkeydown,
         size,
         tag,
     }: &Props,
 ) -> Html {
+    let UseRipple {
+        ripple_wrapper,
+        start,
+        stop,
+    } = use_ripple(None, false, None);
+
     let disabled = *disabled;
     let is_link = !href.is_none();
     let tag = get_html_tag(tag, is_link);
@@ -69,8 +78,10 @@ pub fn Button(
         None
     };
 
-    let ripple = html! {
-        if !is_link && !disabled { <RippleWrapper/>}
+    let ripple = if !is_link && !disabled {
+        ripple_wrapper
+    } else {
+        VNode::default()
     };
 
     let handle_click = {
@@ -78,12 +89,20 @@ pub fn Button(
 
         Callback::from(move |event| {
             if !disabled {
-                onclick.emit(event)
+                onclick.emit(event);
             }
         })
     };
 
-    // let
+    let handle_keydown = {
+        let onkeydown = onkeydown.clone();
+
+        Callback::from(move |event| {
+            if !disabled {
+                onkeydown.emit(event);
+            }
+        })
+    };
 
     html! {
         <@{tag}
@@ -92,20 +111,16 @@ pub fn Button(
             href={href}
             disabled={disabled}
             onclick={handle_click}
+            onkeydown={handle_keydown}
+            onmousedown={start}
+            onmouseup={stop.clone()}
+            onmouseleave={stop}
             type={button_type}
         >
             <div>{child_list}</div>
             {ripple}
         </@>
     }
-}
-
-/// The html tag for Button component
-#[derive(PartialEq, Eq, Clone)]
-pub enum ButtonTag {
-    Div,
-    Span,
-    Button,
 }
 
 /// The html button type
@@ -150,18 +165,12 @@ impl Display for ButtonVariant {
 }
 
 /// button tag
-fn get_html_tag(tag: &ButtonTag, is_link: bool) -> String {
-    let html_tag = if is_link {
-        "a"
+fn get_html_tag(tag: &AttrValue, is_link: bool) -> String {
+    if is_link {
+        String::from("a")
     } else {
-        match tag {
-            ButtonTag::Div => "div",
-            ButtonTag::Span => "span",
-            ButtonTag::Button => "button",
-        }
-    };
-
-    String::from(html_tag)
+        tag.to_string()
+    }
 }
 
 // button style
