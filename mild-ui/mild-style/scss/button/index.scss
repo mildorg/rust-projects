@@ -20,24 +20,6 @@ $button-sizes: (
     $btn-font-size-lg,
     $border-radius-lg,
   ),
-  outlined-small: (
-    $btn-padding-outlined-y-sm,
-    $btn-padding-outlined-x-sm,
-    $btn-font-size-sm,
-    $border-radius-sm,
-  ),
-  outlined-medium: (
-    $btn-padding-outlined-y,
-    $btn-padding-outlined-x,
-    $btn-font-size,
-    $border-radius,
-  ),
-  outlined-large: (
-    $btn-padding-outlined-y-lg,
-    $btn-padding-outlined-x-lg,
-    $btn-font-size-lg,
-    $border-radius-lg,
-  ),
 );
 
 .btn {
@@ -91,14 +73,18 @@ $button-sizes: (
 
   // button elevation
   &-elevation {
-    box-shadow: shadow(2);
+    box-shadow: m-shadow(2);
 
     &:hover {
-      box-shadow: shadow(4);
+      box-shadow: m-shadow(4);
+    }
+
+    &:focus-visible {
+      box-shadow: m-shadow(6);
     }
 
     &:active {
-      box-shadow: shadow(8);
+      box-shadow: m-shadow(8);
     }
   }
 }
@@ -119,7 +105,11 @@ $button-sizes: (
 
 // outlined button
 .btn-outlined {
-  border: $btn-border-width solid;
+  outline: $btn-outline-width solid;
+
+  &:focus-visible {
+    outline: $btn-outline-width solid;
+  }
 
   // outlined button color
   @each $name, $value in $theme-colors {
@@ -142,7 +132,7 @@ $button-sizes: (
       @include button-style(
         none,
         $value,
-        unset,
+        none,
         $hover-background: fade-out($value, $action-hover-fade-out)
       );
     }

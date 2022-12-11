@@ -54,7 +54,7 @@ pub fn Button(
     let UseRipple {
         ripple_wrapper,
         focus_start,
-        focus_stop,
+        blur_stop,
         mouse_start,
         mouse_stop,
     } = use_ripple(None, false, None);
@@ -62,6 +62,7 @@ pub fn Button(
     let disabled = *disabled;
     let is_link = !href.is_none();
     let tag = get_html_tag(tag, is_link);
+    let tabindex = if disabled { -1 } else { 1 };
     let child_list = children.iter().collect::<Html>();
 
     let styles = get_styles(Styles {
@@ -116,9 +117,10 @@ pub fn Button(
             onkeydown={handle_keydown}
             onfocus={focus_start}
             onmousedown={mouse_start}
-            onblur={focus_stop}
+            onblur={blur_stop}
             onmouseup={mouse_stop.clone()}
             onmouseleave={mouse_stop}
+            tabindex={tabindex.to_string()}
             type={button_type}
         >
             <div>{child_list}</div>
@@ -179,23 +181,18 @@ fn get_html_tag(tag: &AttrValue, is_link: bool) -> String {
 
 // button style
 fn get_variant_style(variant: &ButtonVariant, is_link: bool) -> String {
-    match is_link {
+    let style = match is_link {
         true => "link".to_string(),
         false => variant.to_string(),
-    }
+    };
+
+    format!("btn-{style}")
 }
 
-fn get_size_style(size: &Size, variant: &ButtonVariant, is_link: bool) -> String {
-    let default = format!("btn-{size}");
-
-    if is_link {
-        return default;
-    }
-
+fn get_size_style(size: &Size, variant: &ButtonVariant) -> String {
     match variant {
         ButtonVariant::Circle => format!("btn-{}-{}", variant, size),
-        ButtonVariant::Outlined => format!("btn-{}-{}", variant, size),
-        _ => default,
+        _ => format!("btn-{size}"),
     }
 }
 
@@ -221,10 +218,10 @@ fn get_styles(
     }: Styles,
 ) -> Classes {
     let color = &format!("btn-{color}");
-    let size_style = get_size_style(size, variant, is_link);
-    let variant_style = format!("btn-{}", get_variant_style(variant, is_link));
+    let size_style = get_size_style(size, variant);
+    let variant_style = get_variant_style(variant, is_link);
 
-    let mut styles = vec!["btn", color, &size_style, &variant_style];
+    let mut styles = vec!["btn", &variant_style, color, &size_style];
 
     if elevation && *variant == ButtonVariant::Circle || *variant == ButtonVariant::Contained {
         styles.push("btn-elevation");

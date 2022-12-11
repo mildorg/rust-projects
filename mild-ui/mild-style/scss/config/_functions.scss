@@ -3,7 +3,7 @@
 }
 
 // Generate the shadow for mild-ui. The shadow is following material design
-@function shadow($n: number) {
+@function m-shadow($n: number) {
   @if $n < 0 or $n > 24 {
     @error 'The $n for shadow function should: " 0<= $n <= 24"';
   }

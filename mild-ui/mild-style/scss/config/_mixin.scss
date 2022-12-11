@@ -8,12 +8,12 @@
 @mixin button-style(
   $background,
   $color,
-  $border-color: fade-out($color, 0.5),
+  $outline-color: fade-out($color, 0.5),
   $hover-background: darken($background, $action-hover)
 ) {
   background: $background;
-  border-color: $border-color;
   color: $color;
+  outline-color: $outline-color;
 
   &:hover {
     background: $hover-background;

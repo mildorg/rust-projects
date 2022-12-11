@@ -13,7 +13,7 @@ use crate::utils::web::timer::{clear_timeout, set_timeout};
 pub struct UseRipple {
     pub ripple_wrapper: VNode,
     pub focus_start: Callback<FocusEvent>,
-    pub focus_stop: Callback<FocusEvent>,
+    pub blur_stop: Callback<FocusEvent>,
     pub mouse_start: Callback<MouseEvent>,
     pub mouse_stop: Callback<MouseEvent>,
 }
@@ -58,7 +58,7 @@ pub fn use_ripple(class: Option<Classes>, center: bool, timeout: Option<u32>) ->
         })
     };
 
-    let focus_stop = Callback::from(move |_| stop.emit(()));
+    let blur_stop = Callback::from(move |_| stop.emit(()));
 
     use_effect_with_deps(
         |clear_ref| {
@@ -76,7 +76,7 @@ pub fn use_ripple(class: Option<Classes>, center: bool, timeout: Option<u32>) ->
 
     UseRipple {
         focus_start,
-        focus_stop,
+        blur_stop,
         mouse_start,
         mouse_stop,
         ripple_wrapper,
