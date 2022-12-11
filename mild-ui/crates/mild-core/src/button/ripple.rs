@@ -15,14 +15,14 @@ pub struct Props {
 }
 
 #[function_component]
-pub fn Ripple(
-    Props {
+pub fn Ripple(props: &Props) -> Html {
+    let Props {
         is_bubble,
         ripple_size,
         ripple_x,
         ripple_y,
-    }: &Props,
-) -> Html {
+    } = props;
+
     let entering = use_state_eq(|| false);
 
     let is_bubble = *is_bubble;

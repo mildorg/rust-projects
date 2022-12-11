@@ -34,8 +34,8 @@ pub struct Props {
 }
 
 #[function_component]
-pub fn Button(
-    Props {
+pub fn Button(props: &Props) -> Html {
+    let Props {
         button_type,
         children,
         class,
@@ -49,15 +49,15 @@ pub fn Button(
         onkeydown,
         size,
         tag,
-    }: &Props,
-) -> Html {
+    } = props;
+
     let UseRipple {
         ripple_wrapper,
         focus_start,
         blur_stop,
         mouse_start,
         mouse_stop,
-    } = use_ripple(None, false, None);
+    } = use_ripple(false, 500, None);
 
     let disabled = *disabled;
     let is_link = !href.is_none();
@@ -65,7 +65,7 @@ pub fn Button(
     let tabindex = if disabled { -1 } else { 1 };
     let child_list = children.iter().collect::<Html>();
 
-    let styles = get_styles(Styles {
+    let classes = get_classes(PClass {
         class,
         color,
         disabled,
@@ -110,7 +110,7 @@ pub fn Button(
     html! {
         <@{tag}
             id={id}
-            class={styles}
+            class={classes}
             href={href}
             disabled={disabled}
             onclick={handle_click}
@@ -196,7 +196,7 @@ fn get_size_style(size: &Size, variant: &ButtonVariant) -> String {
     }
 }
 
-struct Styles<'a> {
+struct PClass<'a> {
     class: &'a Classes,
     color: &'a Color,
     disabled: bool,
@@ -206,8 +206,8 @@ struct Styles<'a> {
     variant: &'a ButtonVariant,
 }
 
-fn get_styles(
-    Styles {
+fn get_classes(params: PClass) -> Classes {
+    let PClass {
         class,
         color,
         disabled,
@@ -215,8 +215,8 @@ fn get_styles(
         is_link,
         size,
         variant,
-    }: Styles,
-) -> Classes {
+    } = params;
+
     let color = &format!("btn-{color}");
     let size_style = get_size_style(size, variant);
     let variant_style = get_variant_style(variant, is_link);
