@@ -6,6 +6,8 @@ use mild_core::{
     styles::{Color, Size},
 };
 
+use crate::utils::web::KeyBoard;
+
 const COLORS: [Color; 6] = [
     Color::Primary,
     Color::Secondary,
@@ -126,8 +128,13 @@ pub(crate) fn ButtonDoc() -> Html {
     });
 
     let handle_keydown = Callback::from(move |e: KeyboardEvent| {
-        e.prevent_default();
-        let info = format!(r#"key: "{}", key code: "{}""#, e.key(), e.key_code());
+        let key = e.key();
+
+        if key == KeyBoard::Enter.to_string() || key == KeyBoard::Space.to_string() {
+            e.prevent_default();
+        }
+
+        let info = format!(r#"key: "{}", key code: "{}""#, key, e.key_code());
         log!(info);
     });
 
@@ -150,7 +157,7 @@ pub(crate) fn ButtonDoc() -> Html {
 
             <div class="section">
                 <h2>{"Button events"}</h2>
-                <p>{"Open the browser console, click the button and see what happened."}</p>
+                <p>{"Open the browser console, click or press the keyboard on the button and see what happened."}</p>
                 <Button variant={ButtonVariant::Contained} onclick={handle_click} onkeydown={handle_keydown}>
                     {to_upper(&Color::Primary)}
                 </Button>
