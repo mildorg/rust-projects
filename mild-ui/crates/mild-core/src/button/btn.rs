@@ -52,9 +52,10 @@ pub fn Button(
     }: &Props,
 ) -> Html {
     let UseRipple {
-        ripple_wrapper,
-        start,
         stop,
+        focus_start,
+        mouse_start,
+        ripple_wrapper,
     } = use_ripple(None, false, None);
 
     let disabled = *disabled;
@@ -112,9 +113,11 @@ pub fn Button(
             disabled={disabled}
             onclick={handle_click}
             onkeydown={handle_keydown}
-            onmousedown={start}
-            onmouseup={stop.clone()}
-            onmouseleave={stop}
+            onfocus={focus_start}
+            onmousedown={mouse_start}
+            onblur={generate_stop(&stop)}
+            onmouseup={generate_stop(&stop)}
+            onmouseleave={generate_stop(&stop)}
             type={button_type}
         >
             <div>{child_list}</div>
@@ -230,4 +233,10 @@ fn get_styles(
     }
 
     classes!(prefixes(&styles), class.clone())
+}
+
+/// stop helper
+fn generate_stop<T>(stop: &Callback<()>) -> Callback<T> {
+    let stop = stop.clone();
+    Callback::from(move |_| stop.emit(()))
 }

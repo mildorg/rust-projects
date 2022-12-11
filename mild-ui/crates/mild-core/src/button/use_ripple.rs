@@ -12,8 +12,9 @@ use crate::utils::web::timer::{clear_timeout, set_timeout};
 
 pub struct UseRipple {
     pub ripple_wrapper: VNode,
-    pub start: Callback<MouseEvent>,
-    pub stop: Callback<MouseEvent>,
+    pub focus_start: Callback<FocusEvent>,
+    pub mouse_start: Callback<MouseEvent>,
+    pub stop: Callback<()>,
 }
 
 #[hook]
@@ -28,7 +29,8 @@ pub fn use_ripple(class: Option<Classes>, center: bool, timeout: Option<u32>) ->
     let ripple_list = (*ripples).clone().into_iter().collect::<Vec<VNode>>();
 
     let stop = stop(&ripples, &clear_ref, timeout);
-    let start = start(&container_ref, center, &next_key, &ripples);
+    let focus_start = focus_start(&container_ref, &next_key, &ripples);
+    let mouse_start = mouse_start(&container_ref, center, &next_key, &ripples);
 
     use_effect_with_deps(
         |clear_ref| {
@@ -45,13 +47,39 @@ pub fn use_ripple(class: Option<Classes>, center: bool, timeout: Option<u32>) ->
     };
 
     UseRipple {
-        start,
         stop,
+        focus_start,
+        mouse_start,
         ripple_wrapper,
     }
 }
 
-fn start(
+fn stop(
+    ripples: &UseStateHandle<Vec<VNode>>,
+    clear_ref: &Rc<RefCell<i32>>,
+    timeout: u32,
+) -> Callback<()> {
+    let clear_ref = clear_ref.clone();
+    let ripples = ripples.clone();
+    let timeout = timeout / 2;
+
+    Callback::from(move |_| {
+        if !ripples.is_empty() {
+            let clone_clear_ref = clear_ref.clone();
+            let ripples = ripples.clone();
+
+            let clear = set_timeout(timeout, move || {
+                // clear the previous timer
+                clear_timeout(*clone_clear_ref.borrow());
+                ripples.set(ripples[1..].to_vec());
+            });
+
+            *clear_ref.borrow_mut() = clear;
+        }
+    })
+}
+
+fn mouse_start(
     container_ref: &NodeRef,
     center: bool,
     next_key: &UseStateHandle<i32>,
@@ -62,17 +90,30 @@ fn start(
     let ripples = ripples.clone();
 
     Callback::from(move |e: MouseEvent| {
-        let element = container_ref.cast::<HtmlElement>();
         let client_x = e.client_x();
         let client_y = e.client_y();
+        let element = container_ref.cast::<HtmlElement>();
 
         if let Some(el) = element {
-            let rect = el.get_bounding_client_rect();
+            create_ripple(client_x, client_y, center, &el, &next_key, &ripples);
+        }
+    })
+}
 
-            let (ripple_x, ripple_y) = get_coordinates(&rect, client_x, client_y, center);
-            let ripple_size = get_ripple_size(el, &rect, ripple_x, ripple_y, center);
+fn focus_start(
+    container_ref: &NodeRef,
+    next_key: &UseStateHandle<i32>,
+    ripples: &UseStateHandle<Vec<VNode>>,
+) -> Callback<FocusEvent> {
+    let container_ref = container_ref.clone();
+    let next_key = next_key.clone();
+    let ripples = ripples.clone();
 
-            create_ripple(ripple_x, ripple_y, ripple_size, &next_key, &ripples)
+    Callback::from(move |_| {
+        let element = container_ref.cast::<HtmlElement>();
+
+        if let Some(el) = element {
+            create_ripple(0, 0, true, &el, &next_key, &ripples);
         }
     })
 }
@@ -93,7 +134,7 @@ fn get_coordinates(rect: &DomRect, client_x: i32, client_y: i32, center: bool) -
 }
 
 fn get_ripple_size(
-    el: HtmlElement,
+    el: &HtmlElement,
     rect: &DomRect,
     ripple_x: f64,
     ripple_y: f64,
@@ -109,14 +150,19 @@ fn get_ripple_size(
 }
 
 fn create_ripple(
-    ripple_x: f64,
-    ripple_y: f64,
-    ripple_size: f64,
+    client_x: i32,
+    client_y: i32,
+    center: bool,
+    element: &HtmlElement,
     next_key: &UseStateHandle<i32>,
     ripples: &UseStateHandle<Vec<VNode>>,
 ) {
     let next_key = next_key.clone();
+    let rect = element.get_bounding_client_rect();
     let mut new_ripples = ripples.deref().clone();
+
+    let (ripple_x, ripple_y) = get_coordinates(&rect, client_x, client_y, center);
+    let ripple_size = get_ripple_size(element, &rect, ripple_x, ripple_y, center);
 
     let ripple = html! {
         <Ripple
@@ -131,29 +177,4 @@ fn create_ripple(
 
     ripples.set(new_ripples);
     next_key.set(*next_key + 1);
-}
-
-fn stop(
-    ripples: &UseStateHandle<Vec<VNode>>,
-    clear_ref: &Rc<RefCell<i32>>,
-    timeout: u32,
-) -> Callback<MouseEvent> {
-    let clear_ref = clear_ref.clone();
-    let ripples = ripples.clone();
-    let timeout = timeout / 2;
-
-    Callback::from(move |_| {
-        if !ripples.is_empty() {
-            let clone_clear_ref = clear_ref.clone();
-            let ripples = ripples.clone();
-
-            let clear = set_timeout(timeout, move || {
-                // clear the previous timer
-                clear_timeout(*clone_clear_ref.borrow());
-                ripples.set(ripples[1..].to_vec());
-            });
-
-            *clear_ref.borrow_mut() = clear;
-        }
-    })
 }
