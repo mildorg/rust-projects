@@ -3,6 +3,11 @@ pub fn _learn_string() {
   _loop_str()
 }
 
+
+pub fn add (){
+  let s1 = String::from();
+}
+
 pub fn _add_str() {
   let mut str1 = String::from("foo");
   let str2 = "bar";

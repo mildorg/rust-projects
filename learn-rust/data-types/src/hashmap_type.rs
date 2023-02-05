@@ -9,6 +9,7 @@ pub fn learn_hashmap() {
     _count_word();
 }
 
+
 pub fn _create_hashmap() {
     let mut scores = HashMap::new();
     scores.insert(String::from("Blue"), 10);
