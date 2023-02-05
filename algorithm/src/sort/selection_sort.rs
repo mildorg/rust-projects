@@ -3,6 +3,11 @@ use super::utils::comparator;
 // 选择排序
 fn selection_sor(list: &mut Vec<i32>) {
     let len = list.len();
+
+    if len == 0 || len == 1 {
+        return;
+    }
+
     let mut min;
 
     // 0 ~ n-1  找到最小值，在哪，放到0位置上
@@ -25,5 +30,5 @@ fn selection_sor(list: &mut Vec<i32>) {
 
 pub fn test() {
     let passed = comparator(selection_sor, 100_000);
-    println!("selection_sor is work well?: {passed}");
+    println!("The selection_sor is work well?: {passed}");
 }
