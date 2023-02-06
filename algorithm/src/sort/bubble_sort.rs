@@ -18,5 +18,5 @@ fn bubble_sort(list: &mut Vec<i32>) {
 
 pub fn test() {
     let passed = comparator(bubble_sort, 10_000);
-    println!("The bubble_sort works well? {passed}");
+    println!("The bubble_sort1 works well? {passed}");
 }

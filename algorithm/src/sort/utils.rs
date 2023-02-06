@@ -37,7 +37,7 @@ fn is_equal(list1: &Vec<i32>, list2: &Vec<i32>) -> bool {
 
 fn get_rand_list() -> Vec<i32> {
     let len = rand::thread_rng().gen_range(0..100);
-    let mut list = Vec::with_capacity(len);
+    let mut list = Vec::with_capacity(100);
 
     for _ in 0..len {
         let v1 = rand::thread_rng().gen_range(0..100);
