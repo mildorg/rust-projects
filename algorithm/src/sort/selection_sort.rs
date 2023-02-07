@@ -1,9 +1,10 @@
 use super::utils::comparator;
 
 // 选择排序
-fn selection_sor(list: &mut Vec<i32>) {
+fn selection_sort(list: &mut Vec<i32>) {
     let len = list.len();
-    if len == 0 || len == 1 {
+
+    if len <= 1 {
         return;
     }
 
@@ -17,12 +18,12 @@ fn selection_sor(list: &mut Vec<i32>) {
         }
 
         if min != i {
-            list.swap(i, min);
+            list.swap(min, i);
         }
     }
 }
 
 pub fn test() {
-    let passed = comparator(selection_sor, 10_000);
+    let passed = comparator(selection_sort, 10_000);
     println!("The selection_sor is work well?: {passed}");
 }

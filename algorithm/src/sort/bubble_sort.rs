@@ -3,7 +3,7 @@ use super::utils::comparator;
 fn bubble_sort(list: &mut Vec<i32>) {
     let len = list.len();
 
-    if len == 0 || len == 1 {
+    if len <= 1 {
         return;
     }
 

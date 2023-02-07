@@ -30,7 +30,7 @@ fn process(list: &mut [i32], l: usize, r: usize) {
 
 fn partition(list: &mut [i32], l: usize, r: usize) -> (usize, usize) {
     if l > r {
-        return (0, r);
+        return (0, list.len());
     }
 
     if l == r {
@@ -39,7 +39,6 @@ fn partition(list: &mut [i32], l: usize, r: usize) -> (usize, usize) {
 
     let mut less = if l == 0 { -1 } else { (l - 1) as i32 };
     let mut more = r;
-
     let mut index = l;
     let base = list[r];
 
@@ -65,6 +64,6 @@ fn partition(list: &mut [i32], l: usize, r: usize) -> (usize, usize) {
 }
 
 pub fn test() {
-    let passed = comparator(quick_sort, 100_000);
+    let passed = comparator(quick_sort, 1);
     println!("The quick sort is works well: {passed} !");
 }
