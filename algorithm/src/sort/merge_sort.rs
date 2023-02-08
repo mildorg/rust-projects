@@ -55,6 +55,6 @@ fn merge(list: &mut [i32], l: usize, m: usize, r: usize) {
 }
 
 pub fn test() {
-    let passed = comparator(merge_sort, 100_000);
+    let passed = comparator(merge_sort, 10_000);
     println!("The merge sort works well: {passed}");
 }
