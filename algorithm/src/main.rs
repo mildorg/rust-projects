@@ -6,6 +6,6 @@ fn main() {
     // sort::bubble_sort::test();
     // sort::insert_sort::test();
     // sort::quick_sort::test();
-    // sort::merge_sort::test();
-    sort::heap_sort::test();
+    sort::merge_sort::test();
+    // sort::heap_sort::test();
 }

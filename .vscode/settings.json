@@ -4,6 +4,7 @@
     "codepoint",
     "doccomments",
     "gloo",
+    "heapify",
     "linebreak",
     "onchange",
     "onclick",
