@@ -1,6 +1,6 @@
 use super::utils::comparator;
 
-fn insert_sort(list: &mut Vec<i32>) {
+pub fn insert_sort(list: &mut Vec<i32>) {
     let len = list.len();
 
     if len <= 1 {

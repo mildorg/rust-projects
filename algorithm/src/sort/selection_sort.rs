@@ -18,7 +18,7 @@ fn selection_sort(list: &mut Vec<i32>) {
         }
 
         if min != i {
-            list.swap(min, i);
+            list.swap(i, min);
         }
     }
 }

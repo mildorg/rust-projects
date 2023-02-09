@@ -1,11 +1,19 @@
 use rand::Rng;
 
-pub fn comparator<F>(sort_fn: F, times: u32) -> bool
+pub fn comparator<F: Fn(&mut Vec<i32>)>(sort_fn: F, times: u32) -> bool {
+    compare(sort_fn, false, times)
+}
+
+pub fn pos_comparator<F: Fn(&mut Vec<i32>)>(sort_fn: F, times: u32) -> bool {
+    compare(sort_fn, true, times)
+}
+
+fn compare<F>(sort_fn: F, positive: bool, times: u32) -> bool
 where
     F: Fn(&mut Vec<i32>),
 {
     for _ in 0..times {
-        let mut list1 = get_rand_list();
+        let mut list1 = get_rand_list(positive);
         let mut list2 = list1.clone();
 
         sort_fn(&mut list1);
@@ -21,7 +29,7 @@ where
     true
 }
 
-fn is_equal(list1: &Vec<i32>, list2: &Vec<i32>) -> bool {
+pub fn is_equal(list1: &Vec<i32>, list2: &Vec<i32>) -> bool {
     if list1.len() != list2.len() {
         return false;
     }
@@ -35,15 +43,18 @@ fn is_equal(list1: &Vec<i32>, list2: &Vec<i32>) -> bool {
     true
 }
 
-fn get_rand_list() -> Vec<i32> {
+fn get_rand_list(positive: bool) -> Vec<i32> {
     let len = rand::thread_rng().gen_range(0..100);
     let mut list = Vec::with_capacity(100);
 
     for _ in 0..len {
-        let v1 = rand::thread_rng().gen_range(0..100);
-        let v2 = rand::thread_rng().gen_range(0..100);
+        let mut value = rand::thread_rng().gen_range(0..100);
 
-        list.push(v1 - v2);
+        if !positive {
+            value -= rand::thread_rng().gen_range(0..100)
+        }
+
+        list.push(value);
     }
 
     list
