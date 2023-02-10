@@ -8,7 +8,7 @@ fn bucket_sort(list: &mut Vec<i32>) {
     let size = 5;
     let (max, min) = get_max_min(list);
     let count = ((max - min) / size + 1) as usize;
-    let mut buckets = Vec::with_capacity(count);
+    let mut buckets: Vec<Vec<i32>> = Vec::with_capacity(count);
 
     // 创建桶
     for _ in 0..count {
@@ -16,23 +16,24 @@ fn bucket_sort(list: &mut Vec<i32>) {
     }
 
     // 数据入桶
-    (0..list.len()).for_each(|i| {
-        let index = ((list[i] - min) / size) as usize;
-        buckets[index].push(list[i]);
-    });
+    for n in list.iter() {
+        let i = ((n - min) / size) as usize;
+        buckets[i].push(*n);
+    }
 
     // 排序
-    let mut index = 0;
+    let mut i = 0;
     for bucket in buckets.iter_mut() {
         insert_sort::insert_sort(bucket);
 
         for n in bucket {
-            list[index] = *n;
-            index += 1;
+            list[i] = *n;
+            i += 1;
         }
     }
 }
 
+// 获取最大和最小
 fn get_max_min(list: &[i32]) -> (i32, i32) {
     let mut max = list[0];
     let mut min = list[0];
@@ -53,6 +54,6 @@ fn get_max_min(list: &[i32]) -> (i32, i32) {
 }
 
 pub fn test() {
-    let passed = pos_comparator(bucket_sort, 10_000);
-    println!("The bucket sort 2 works well? {passed}");
+    let passed = pos_comparator(bucket_sort, 1_000);
+    println!("The bucket sort works well? {passed}");
 }

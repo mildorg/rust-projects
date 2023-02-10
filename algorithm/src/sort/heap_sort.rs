@@ -47,6 +47,6 @@ fn heapify(list: &mut [i32], head: usize, size: usize) {
 }
 
 pub fn test() {
-    let passed = comparator(heap_sort, 10_000);
+    let passed = comparator(heap_sort, 1_000);
     println!("The heap sort works well: {passed}");
 }

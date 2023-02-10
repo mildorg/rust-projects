@@ -18,6 +18,6 @@ pub fn insert_sort(list: &mut Vec<i32>) {
 }
 
 pub fn test() {
-    let passed = comparator(insert_sort, 1);
+    let passed = comparator(insert_sort, 1_000);
     println!("The insert sort work well?: {passed}");
 }

@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 use rand::Rng;
 
 pub fn comparator<F: Fn(&mut Vec<i32>)>(sort_fn: F, times: u32) -> bool {
@@ -12,6 +14,8 @@ fn compare<F>(sort_fn: F, positive: bool, times: u32) -> bool
 where
     F: Fn(&mut Vec<i32>),
 {
+    let start = Instant::now();
+
     for _ in 0..times {
         let mut list1 = get_rand_list(positive);
         let mut list2 = list1.clone();
@@ -25,6 +29,10 @@ where
             return false;
         }
     }
+
+    let duration = start.elapsed();
+    println!();
+    println!("The expensive time is {duration:?}");
 
     true
 }
@@ -44,14 +52,15 @@ pub fn is_equal(list1: &Vec<i32>, list2: &Vec<i32>) -> bool {
 }
 
 fn get_rand_list(positive: bool) -> Vec<i32> {
-    let len = rand::thread_rng().gen_range(0..100);
-    let mut list = Vec::with_capacity(100);
+    let size = 1000;
+    let len = rand::thread_rng().gen_range(0..size);
+    let mut list = Vec::with_capacity(1000);
 
     for _ in 0..len {
-        let mut value = rand::thread_rng().gen_range(0..100);
+        let mut value = rand::thread_rng().gen_range(0..size);
 
         if !positive {
-            value -= rand::thread_rng().gen_range(0..100)
+            value -= rand::thread_rng().gen_range(0..size)
         }
 
         list.push(value);

@@ -24,6 +24,6 @@ fn selection_sort(list: &mut Vec<i32>) {
 }
 
 pub fn test() {
-    let passed = comparator(selection_sort, 10_000);
+    let passed = comparator(selection_sort, 1_000);
     println!("The selection_sor is work well?: {passed}");
 }
