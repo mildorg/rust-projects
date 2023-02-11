@@ -7,7 +7,7 @@ fn main() {
     // sort::insert_sort::test();
     // sort::quick_sort::test();
     // sort::merge_sort::test();
-    // sort::heap_sort::test();
+    sort::heap_sort::test();
     // sort::bucket_sort::test();
-    sort::radix_sort::test();
+    // sort::radix_sort::test();
 }

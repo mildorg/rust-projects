@@ -10,7 +10,7 @@ fn radix_sort(list: &mut Vec<i32>) {
         return;
     }
 
-    // 创建桶
+    //创建桶
     let mut buckets = Vec::with_capacity(10);
     for _ in 0..10 {
         buckets.push(VecDeque::new());
@@ -21,13 +21,13 @@ fn radix_sort(list: &mut Vec<i32>) {
     let mut d = 1;
 
     while n > 0 {
-        // 数据入桶
+        // 输入入桶
         (0..len).for_each(|i| {
             let index = (list[i] / d) as usize % 10;
             buckets[index].push_back(list[i]);
         });
 
-        // 将数据重新 copy 到 list
+        // 数据入 list
         let mut i = 0;
         for bucket in buckets.iter_mut() {
             while !bucket.is_empty() {
@@ -36,7 +36,7 @@ fn radix_sort(list: &mut Vec<i32>) {
             }
         }
 
-        // 对下一个10进位进行操作
+        // 对下一进制位进行处理
         n /= 10;
         d *= 10;
     }
@@ -45,13 +45,11 @@ fn radix_sort(list: &mut Vec<i32>) {
 fn get_max(list: &[i32]) -> i32 {
     let mut max = list[0];
 
-    for n in list.iter().skip(1) {
-        let n = *n;
-
-        if n > max {
-            max = n;
+    (1..list.len()).for_each(|i| {
+        if list[i] > max {
+            max = list[i];
         }
-    }
+    });
 
     max
 }

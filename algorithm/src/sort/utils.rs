@@ -52,7 +52,7 @@ pub fn is_equal(list1: &Vec<i32>, list2: &Vec<i32>) -> bool {
 }
 
 fn get_rand_list(positive: bool) -> Vec<i32> {
-    let size = 1000;
+    let size = 100;
     let len = rand::thread_rng().gen_range(0..size);
     let mut list = Vec::with_capacity(1000);
 
