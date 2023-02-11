@@ -11,9 +11,9 @@ fn selection_sort(list: &mut Vec<i32>) {
     for i in 0..len {
         let mut min = i;
 
-        for j in i + 1..len {
-            if list[j] < list[min] {
-                min = j;
+        for p in i + 1 ..len {
+            if list[p] < list[min] {
+                min = p;
             }
         }
 

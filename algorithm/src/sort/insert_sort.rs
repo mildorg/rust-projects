@@ -7,12 +7,12 @@ pub fn insert_sort(list: &mut Vec<i32>) {
         return;
     }
 
-    for i in 0..len {
-        let mut index = i;
+    for i in 1..len {
+        let mut j = i;
 
-        while index > 0 && list[index] < list[index - 1] {
-            list.swap(index, index - 1);
-            index -= 1;
+        while j > 0 && list[j] < list[j - 1] {
+            list.swap(j, j - 1);
+            j -= 1;
         }
     }
 }
