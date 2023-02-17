@@ -15,13 +15,13 @@ fn sort(list: &mut [i32], l: usize, r: usize) {
         return;
     }
 
-    let m = l + ((r - l) >> 1) as usize;
+    let m = l + ((r - l) >> 1);
     sort(list, l, m);
     sort(list, m + 1, r);
     merge(list, l, m, r);
 }
 
-fn merge(list: &mut [i32], l: usize, m: usize, r:usize) {
+fn merge(list: &mut [i32], l: usize, m: usize, r: usize) {
     let mut help = Vec::with_capacity(r - l + 1);
     let mut p1 = l;
     let mut p2 = m + 1;
@@ -46,7 +46,7 @@ fn merge(list: &mut [i32], l: usize, m: usize, r:usize) {
         p2 += 1;
     }
 
-    (0..help.len()).for_each(|i|{
+    (0..help.len()).for_each(|i| {
         list[l + i] = help[i];
     });
 }
