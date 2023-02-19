@@ -30,11 +30,11 @@ impl<T> List<T> {
     }
 
     pub fn peek(&self) -> Option<&T> {
-        self.head.as_deref().map(|node| &node.elem)
+        self.head.as_ref().map(|node| &node.elem)
     }
 
     pub fn peek_mut(&mut self) -> Option<&mut T> {
-        self.head.as_deref_mut().map(|node| &mut node.elem)
+        self.head.as_mut().map(|node| &mut node.elem)
     }
 
     pub fn iter(&self) -> Iter<T> {
@@ -58,21 +58,7 @@ impl<T> Default for List<T> {
 
 impl<T> Drop for List<T> {
     fn drop(&mut self) {
-        let mut cur_link = self.head.take();
-
-        while let Some(mut node) = cur_link {
-            cur_link = node.next.take();
-        }
-    }
-}
-
-impl<T> IntoIterator for List<T> {
-    type Item = T;
-
-    type IntoIter = IntoIter<T>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        IntoIter(self)
+        while self.pop().is_some() {}
     }
 }
 
@@ -83,6 +69,16 @@ impl<T> Iterator for IntoIter<T> {
 
     fn next(&mut self) -> Option<Self::Item> {
         self.0.pop()
+    }
+}
+
+impl<T> IntoIterator for List<T> {
+    type Item = T;
+
+    type IntoIter = IntoIter<T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        IntoIter(self)
     }
 }
 
