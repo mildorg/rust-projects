@@ -17,19 +17,19 @@ impl<T> List<T> {
     }
 
     pub fn prepend(&self, elem: T) -> List<T> {
-        let node = Node {
+        let new_head = Node {
             elem,
             next: self.head.clone(),
         };
 
         List {
-            head: Some(Rc::new(node)),
+            head: Some(Rc::new(new_head)),
         }
     }
 
     pub fn tail(&self) -> List<T> {
-        let link = self.head.as_ref().and_then(|node| node.next.clone());
-        List { head: link }
+        let new_tail = self.head.as_ref().and_then(|node| node.next.clone());
+        List { head: new_tail }
     }
 
     pub fn head(&self) -> Option<&T> {
@@ -51,13 +51,12 @@ impl<T> Default for List<T> {
 
 impl<T> Drop for List<T> {
     fn drop(&mut self) {
-        let mut cur = self.head.take();
+        let mut cur_link = self.head.take();
 
-        while let Some(item) = cur {
-            if let Ok(mut node) = Rc::try_unwrap(item) {
-                cur = node.next.take();
-            } else {
-                break;
+        while let Some(node) = cur_link {
+            match Rc::try_unwrap(node) {
+                Ok(mut v) => cur_link = v.next.take(),
+                Err(_) => break,
             }
         }
     }
