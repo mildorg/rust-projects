@@ -21,28 +21,28 @@ impl<T> List<T> {
     }
 
     pub fn push(&mut self, elem: T) {
-        unsafe {
-            let new_tail = Box::into_raw(Box::new(Node {
-                elem,
-                next: ptr::null_mut(),
-            }));
+        let new_tail = Box::into_raw(Box::new(Node {
+            elem,
+            next: ptr::null_mut(),
+        }));
 
-            if !self.tail.is_null() {
+        if self.head.is_null() {
+            self.head = new_tail;
+        } else {
+            unsafe {
                 (*self.tail).next = new_tail;
-            } else {
-                self.head = new_tail;
             }
-
-            self.tail = new_tail;
         }
+
+        self.tail = new_tail;
     }
 
     pub fn pop(&mut self) -> Option<T> {
-        unsafe {
-            if self.head.is_null() {
-                return None;
-            }
+        if self.head.is_null() {
+            return None;
+        }
 
+        unsafe {
             let head = Box::from_raw(self.head);
             self.head = head.next;
 
@@ -62,6 +62,11 @@ impl<T> List<T> {
         unsafe { self.head.as_mut().map(|node| &mut node.elem) }
     }
 
+    #[allow(clippy::should_implement_trait)]
+    pub fn into_iter(self) -> IntoIter<T> {
+        IntoIter(self)
+    }
+
     pub fn iter(&self) -> Iter<T> {
         unsafe {
             Iter {
@@ -70,7 +75,7 @@ impl<T> List<T> {
         }
     }
 
-    pub fn iter_mut(&self) -> IterMut<T> {
+    pub fn iter_mut(&mut self) -> IterMut<T> {
         unsafe {
             IterMut {
                 inner: self.head.as_mut(),
@@ -98,16 +103,6 @@ impl<T> Iterator for IntoIter<T> {
 
     fn next(&mut self) -> Option<Self::Item> {
         self.0.pop()
-    }
-}
-
-impl<T> IntoIterator for List<T> {
-    type Item = T;
-
-    type IntoIter = IntoIter<T>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        IntoIter(self)
     }
 }
 
