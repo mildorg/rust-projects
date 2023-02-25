@@ -21,15 +21,14 @@ impl<T> List<T> {
             elem,
             next: self.head.clone(),
         };
-
         List {
             head: Some(Rc::new(new_head)),
         }
     }
 
     pub fn tail(&self) -> List<T> {
-        let new_tail = self.head.as_ref().and_then(|node| node.next.clone());
-        List { head: new_tail }
+        let new_head = self.head.as_ref().and_then(|node| node.next.clone());
+        Self { head: new_head }
     }
 
     pub fn head(&self) -> Option<&T> {
