@@ -26,7 +26,7 @@ impl<T> List<T> {
             next: ptr::null_mut(),
         }));
 
-        if self.head.is_null() {
+        if self.tail.is_null() {
             self.head = new_tail;
         } else {
             unsafe {
