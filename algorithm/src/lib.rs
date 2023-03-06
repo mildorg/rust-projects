@@ -1,2 +1,3 @@
-pub mod sort;
+pub mod leetcode;
 pub mod link;
+pub mod sort;
