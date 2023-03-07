@@ -1,12 +1,20 @@
+#[derive(Debug)]
 pub struct List<T> {
     head: Link<T>,
 }
 
-type Link<T> = Option<Box<Node<T>>>;
+pub type Link<T> = Option<Box<Node<T>>>;
 
-struct Node<T> {
-    elem: T,
-    next: Link<T>,
+#[derive(Debug)]
+pub struct Node<T> {
+    pub elem: T,
+    pub next: Link<T>,
+}
+
+impl<T> Node<T> {
+    pub fn new(elem: T) -> Self {
+        Node { elem, next: None }
+    }
 }
 
 impl<T> List<T> {
@@ -15,10 +23,11 @@ impl<T> List<T> {
     }
 
     pub fn push(&mut self, elem: T) {
-        let node = Node {
-            elem,
-            next: self.head.take(),
-        };
+        self.push_node(Node { elem, next: None })
+    }
+
+    pub fn push_node(&mut self, mut node: Node<T>) {
+        node.next = self.head.take();
         self.head = Some(Box::new(node));
     }
 
@@ -37,6 +46,14 @@ impl<T> List<T> {
         self.head.as_mut().map(|node| &mut node.elem)
     }
 
+    pub fn peek_node(&self) -> &Link<T> {
+        &self.head
+    }
+
+    pub fn peek_node_mut(&mut self) -> &mut Link<T> {
+        &mut self.head
+    }
+
     pub fn iter(&self) -> Iter<T> {
         Iter {
             inner: self.head.as_deref(),
@@ -48,6 +65,8 @@ impl<T> List<T> {
             inner: self.head.as_deref_mut(),
         }
     }
+
+    pub fn form_iter(&mut self) {}
 }
 
 impl<T> Default for List<T> {
@@ -79,6 +98,18 @@ impl<T> IntoIterator for List<T> {
 
     fn into_iter(self) -> Self::IntoIter {
         IntoIter(self)
+    }
+}
+
+impl<T> FromIterator<T> for List<T> {
+    fn from_iter<A: IntoIterator<Item = T>>(iter: A) -> Self {
+        let mut list = Self::new();
+
+        for elem in iter.into_iter().collect::<Vec<T>>().into_iter().rev() {
+            list.push(elem);
+        }
+
+        list
     }
 }
 
