@@ -3,10 +3,10 @@ use std::cmp::Ordering;
 use crate::link::better_single_link::Link;
 
 #[allow(dead_code)]
-fn common_part(h1: &Link<u32>, h2: &Link<u32>) -> String {
+fn common_part(h1: &Link<i32>, h2: &Link<i32>) -> String {
     let mut h1 = h1;
     let mut h2 = h2;
-    let mut result = String::new();
+    let mut result = vec![];
 
     while h1.is_some() && h2.is_some() {
         let node1 = h1.as_ref().unwrap();
@@ -16,16 +16,14 @@ fn common_part(h1: &Link<u32>, h2: &Link<u32>) -> String {
             Ordering::Less => h1 = &node1.next,
             Ordering::Greater => h2 = &node2.next,
             Ordering::Equal => {
-                let ch = char::from_digit(node1.elem, 10).unwrap();
-                result.push(ch);
-
+                result.push(node1.elem.to_string());
                 h1 = &node1.next;
                 h2 = &node2.next;
             }
         }
     }
 
-    result
+    String::from_iter(result.into_iter())
 }
 
 #[cfg(test)]
@@ -36,12 +34,12 @@ mod test {
 
     #[test]
     fn basics() {
-        let l1 = List::from_iter([1, 3, 5, 6, 7]);
-        let l2 = List::from_iter([3, 6, 7, 8]);
+        let l1 = List::from_iter([-2, 1, 3, 5, 6, 7]);
+        let l2 = List::from_iter([-2, 3, 6, 7, 8]);
         let head1 = l1.peek_node();
         let head2 = l2.peek_node();
 
         let common = common_part(head1, head2);
-        assert_eq!("367", common);
+        assert_eq!("-2367", common);
     }
 }
