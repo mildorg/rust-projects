@@ -5,7 +5,7 @@ pub struct List<T> {
 
 pub type Link<T> = Option<Box<Node<T>>>;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Node<T> {
     pub elem: T,
     pub next: Link<T>,
@@ -20,6 +20,10 @@ impl<T> Node<T> {
 impl<T> List<T> {
     pub fn new() -> Self {
         Self { head: None }
+    }
+
+    pub fn from_link(link: Link<T>) -> Self {
+        Self { head: link }
     }
 
     pub fn push(&mut self, elem: T) {
@@ -54,6 +58,10 @@ impl<T> List<T> {
         &mut self.head
     }
 
+    pub fn take_head(mut self) -> Link<T> {
+        self.head.take()
+    }
+
     pub fn iter(&self) -> Iter<T> {
         Iter {
             inner: self.head.as_deref(),
@@ -65,8 +73,6 @@ impl<T> List<T> {
             inner: self.head.as_deref_mut(),
         }
     }
-
-    pub fn form_iter(&mut self) {}
 }
 
 impl<T> Default for List<T> {
