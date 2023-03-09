@@ -3,20 +3,20 @@ use std::{
     rc::Rc,
 };
 
-pub struct List<T> {
-    head: Link<T>,
-    tail: Link<T>,
+pub struct DoubleList<T> {
+    head: DoubleLink<T>,
+    tail: DoubleLink<T>,
 }
 
-type Link<T> = Option<Rc<RefCell<Node<T>>>>;
+type DoubleLink<T> = Option<Rc<RefCell<DoubleNode<T>>>>;
 
-struct Node<T> {
+struct DoubleNode<T> {
     elem: T,
-    next: Link<T>,
-    pre: Link<T>,
+    next: DoubleLink<T>,
+    pre: DoubleLink<T>,
 }
 
-impl<T> Node<T> {
+impl<T> DoubleNode<T> {
     pub fn new(elem: T) -> Rc<RefCell<Self>> {
         Rc::new(RefCell::new(Self {
             elem,
@@ -26,7 +26,7 @@ impl<T> Node<T> {
     }
 }
 
-impl<T> List<T> {
+impl<T> DoubleList<T> {
     pub fn new() -> Self {
         Self {
             head: None,
@@ -35,7 +35,7 @@ impl<T> List<T> {
     }
 
     pub fn push_front(&mut self, elem: T) {
-        let new_head = Node::new(elem);
+        let new_head = DoubleNode::new(elem);
 
         match self.head.take() {
             Some(old_head) => {
@@ -51,7 +51,7 @@ impl<T> List<T> {
     }
 
     pub fn push_back(&mut self, elem: T) {
-        let new_tail = Node::new(elem);
+        let new_tail = DoubleNode::new(elem);
 
         match self.tail.take() {
             Some(old_tail) => {
@@ -127,19 +127,19 @@ impl<T> List<T> {
     }
 }
 
-impl<T> Default for List<T> {
+impl<T> Default for DoubleList<T> {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl<T> Drop for List<T> {
+impl<T> Drop for DoubleList<T> {
     fn drop(&mut self) {
         while self.pop_front().is_some() {}
     }
 }
 
-pub struct IntoIter<T>(List<T>);
+pub struct IntoIter<T>(DoubleList<T>);
 
 impl<T> Iterator for IntoIter<T> {
     type Item = T;
@@ -155,7 +155,7 @@ impl<T> DoubleEndedIterator for IntoIter<T> {
     }
 }
 
-impl<T> IntoIterator for List<T> {
+impl<T> IntoIterator for DoubleList<T> {
     type Item = T;
 
     type IntoIter = IntoIter<T>;
@@ -167,10 +167,10 @@ impl<T> IntoIterator for List<T> {
 
 #[cfg(test)]
 mod test {
-    use super::List;
+    use super::DoubleList;
     #[test]
     fn basics() {
-        let mut list = List::new();
+        let mut list = DoubleList::new();
 
         // Check empty list behaves right
         assert_eq!(list.pop_front(), None);
@@ -225,7 +225,7 @@ mod test {
 
     #[test]
     fn peek() {
-        let mut list = List::new();
+        let mut list = DoubleList::new();
         assert!(list.peek_front().is_none());
         assert!(list.peek_back().is_none());
         assert!(list.peek_front_mut().is_none());
@@ -243,7 +243,7 @@ mod test {
 
     #[test]
     fn into_iter() {
-        let mut list = List::new();
+        let mut list = DoubleList::new();
         list.push_front(1);
         list.push_front(2);
         list.push_front(3);
@@ -258,7 +258,7 @@ mod test {
 
     #[test]
     fn long_list() {
-        let mut list = List::new();
+        let mut list = DoubleList::new();
 
         for i in 0..100_000 {
             list.push_front(i);
