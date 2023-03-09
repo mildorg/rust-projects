@@ -8,9 +8,9 @@ fn remove_kth_node<T: Debug>(mut link: Link<T>, k: u32) -> Link<T> {
     let mut len = 0;
 
     // 获取链表长度
-    while cur.is_some() {
+    while let Some(node) = cur {
         len += 1;
-        cur = &cur.as_ref().unwrap().next;
+        cur = &node.next;
     }
 
     match len.cmp(&k) {
@@ -38,44 +38,40 @@ fn remove_kth_node<T: Debug>(mut link: Link<T>, k: u32) -> Link<T> {
 #[cfg(test)]
 mod test {
     use crate::{
-        leetcode::link::remove_single_last_kth_node::remove_kth_node,
         link::better_single_link::{Link, List},
+        utils::iter,
     };
+
+    use super::remove_kth_node;
 
     #[test]
     fn basics_1() {
         let list = List::from_iter(vec![2, 3, 4, 5, 7, 1]);
-        let test_list = List::from_iter(vec![2, 3, 4, 7, 1]);
+        let test = vec![2, 3, 4, 7, 1];
 
         let link = remove_kth_node(list.take_head(), 3);
-        assert_eq!(link_to_string(link), list_to_sting(test_list));
+        assert_eq!(link_to_string(link), iter::to_sting(test));
     }
 
     #[test]
     fn basics_2() {
         let list = List::from_iter(vec![2, 3, 4, 5, 7, 1]);
-        let test_list = List::from_iter(vec![2, 3, 4, 5, 7, 1]);
+        let test = vec![2, 3, 4, 5, 7, 1];
 
         let link = remove_kth_node(list.take_head(), 7);
-        assert_eq!(link_to_string(link), list_to_sting(test_list));
+        assert_eq!(link_to_string(link), iter::to_sting(test));
     }
 
     #[test]
     fn basics_3() {
         let list = List::from_iter(vec![2, 3, 4, 5, 7, 1]);
-        let test_list = List::from_iter(vec![3, 4, 5, 7, 1]);
+        let test = vec![3, 4, 5, 7, 1];
 
         let link = remove_kth_node(list.take_head(), 6);
-        assert_eq!(link_to_string(link), list_to_sting(test_list));
-    }
-
-    fn list_to_sting<T: ToString>(list: List<T>) -> String {
-        list.into_iter()
-            .map(|elem| elem.to_string())
-            .collect::<String>()
+        assert_eq!(link_to_string(link), iter::to_sting(test));
     }
 
     fn link_to_string<T: ToString>(link: Link<T>) -> String {
-        list_to_sting(List::from_link(link))
+        iter::to_sting(List::from_link(link))
     }
 }

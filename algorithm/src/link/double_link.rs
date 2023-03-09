@@ -8,12 +8,12 @@ pub struct DoubleList<T> {
     tail: DoubleLink<T>,
 }
 
-type DoubleLink<T> = Option<Rc<RefCell<DoubleNode<T>>>>;
+pub type DoubleLink<T> = Option<Rc<RefCell<DoubleNode<T>>>>;
 
-struct DoubleNode<T> {
-    elem: T,
-    next: DoubleLink<T>,
-    pre: DoubleLink<T>,
+pub struct DoubleNode<T> {
+    pub elem: T,
+    pub next: DoubleLink<T>,
+    pub pre: DoubleLink<T>,
 }
 
 impl<T> DoubleNode<T> {
@@ -32,6 +32,26 @@ impl<T> DoubleList<T> {
             head: None,
             tail: None,
         }
+    }
+
+    pub fn from_head(head: DoubleLink<T>) -> Self {
+        let mut tail = head.clone();
+
+        while let Some(node) = tail.as_ref().and_then(|item| item.borrow().next.clone()) {
+            tail = node.borrow().next.clone();
+        }
+
+        Self { head, tail }
+    }
+
+    pub fn from_tail(tail: DoubleLink<T>) -> Self {
+        let mut head = tail.clone();
+
+        while let Some(node) = head.as_ref().and_then(|item| item.borrow().pre.clone()) {
+            head = node.borrow().pre.clone();
+        }
+
+        Self { head, tail }
     }
 
     pub fn push_front(&mut self, elem: T) {
@@ -125,6 +145,12 @@ impl<T> DoubleList<T> {
             .as_mut()
             .map(|node| RefMut::map(node.borrow_mut(), |node| &mut node.elem))
     }
+
+    pub fn take_head_tail(mut self) -> (DoubleLink<T>, DoubleLink<T>) {
+        let head = self.head.take();
+        let tail = self.tail.take();
+        (head, tail)
+    }
 }
 
 impl<T> Default for DoubleList<T> {
@@ -136,6 +162,18 @@ impl<T> Default for DoubleList<T> {
 impl<T> Drop for DoubleList<T> {
     fn drop(&mut self) {
         while self.pop_front().is_some() {}
+    }
+}
+
+impl<T> FromIterator<T> for DoubleList<T> {
+    fn from_iter<A: IntoIterator<Item = T>>(iter: A) -> Self {
+        let mut list = DoubleList::new();
+
+        for elem in iter.into_iter() {
+            list.push_back(elem);
+        }
+
+        list
     }
 }
 

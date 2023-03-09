@@ -1,1 +1,1 @@
-pub mod link;
+mod link;

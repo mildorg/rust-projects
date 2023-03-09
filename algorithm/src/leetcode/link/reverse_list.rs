@@ -5,6 +5,7 @@
 //   c    ->   b    ->  a  ->  null
 //  null   <-  a    <-  b  <-  c
 
+#![allow(dead_code)]
 // Definition for singly-linked list.
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
