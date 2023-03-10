@@ -72,6 +72,6 @@ mod test {
     }
 
     fn link_to_string<T: ToString>(link: Link<T>) -> String {
-        iter::to_sting(List::from_link(link))
+        iter::to_sting(List::from_head(link))
     }
 }

@@ -5,7 +5,7 @@ pub struct List<T> {
 
 pub type Link<T> = Option<Box<Node<T>>>;
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct Node<T> {
     pub elem: T,
     pub next: Link<T>,
@@ -22,7 +22,7 @@ impl<T> List<T> {
         Self { head: None }
     }
 
-    pub fn from_link(link: Link<T>) -> Self {
+    pub fn from_head(link: Link<T>) -> Self {
         Self { head: link }
     }
 
@@ -151,6 +151,8 @@ impl<'a, T> Iterator for IterMut<'a, T> {
 
 #[cfg(test)]
 mod test {
+    use crate::link::better_single_link::Node;
+
     use super::List;
 
     #[test]
@@ -170,8 +172,8 @@ mod test {
         assert_eq!(list.pop(), Some(2));
 
         // Push some more just to make sure nothing's corrupted
-        list.push(4);
-        list.push(5);
+        list.push_node(Node::new(4));
+        list.push_node(Node::new(5));
 
         // Check normal removal
         assert_eq!(list.pop(), Some(5));
@@ -179,6 +181,22 @@ mod test {
 
         // Check exhaustion
         assert_eq!(list.pop(), Some(1));
+        assert_eq!(list.pop(), None);
+    }
+
+    #[test]
+    fn from() {
+        // from iter
+        let list = List::from_iter(vec![1, 2, 3]);
+
+        // from head
+        let head = list.take_head();
+        let mut list = List::from_head(head);
+
+        assert_eq!(list.peek(), Some(&1));
+        assert_eq!(list.pop(), Some(1));
+        assert_eq!(list.pop(), Some(2));
+        assert_eq!(list.pop(), Some(3));
         assert_eq!(list.pop(), None);
     }
 
