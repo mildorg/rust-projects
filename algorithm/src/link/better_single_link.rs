@@ -30,7 +30,7 @@ impl<T> List<T> {
         self.push_node(Node { elem, next: None })
     }
 
-    pub fn push_node(&mut self, mut node: Node<T>) {
+    fn push_node(&mut self, mut node: Node<T>) {
         node.next = self.head.take();
         self.head = Some(Box::new(node));
     }

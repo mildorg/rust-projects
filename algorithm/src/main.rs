@@ -1,5 +1,5 @@
 #![allow(unused)]
-use algorithm::{link, sort};
+use algorithm::{link, others::count_lands, sort};
 
 fn main() {
     // sort::selection_sort::test();
@@ -10,5 +10,6 @@ fn main() {
     // sort::heap_sort::test();
     // sort::bucket_sort::test();
     // sort::radix_sort::test();
-    link::miri::test_miri();
+    // link::miri::test_miri();
+    count_lands::process()
 }
