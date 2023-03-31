@@ -20,21 +20,25 @@ impl<T: Hash + Eq> UnionFind<T> {
             sizes.insert(value.clone(), 1);
         }
 
-        Self { parents, sizes}
+        Self { parents, sizes }
     }
 
     pub fn is_same_set(&mut self, a: Rc<T>, b: Rc<T>) -> bool {
         self.find_parent(a) == self.find_parent(b)
     }
 
-    pub fn union(&mut self, a: Rc<T>, b:Rc<T>) {
+    pub fn union(&mut self, a: Rc<T>, b: Rc<T>) {
         let a_head = self.find_parent(a);
         let b_head = self.find_parent(b);
 
         if a_head != b_head {
             let a_size = *self.sizes.get(&a_head).unwrap();
             let b_size = *self.sizes.get(&b_head).unwrap();
-            let (big, small) = if a_size >= b_size {(a_head,b_head)} else {(b_head, a_head)};
+            let (big, small) = if a_size >= b_size {
+                (a_head, b_head)
+            } else {
+                (b_head, a_head)
+            };
 
             self.parents.insert(big.clone(), small.clone());
             self.sizes.insert(big, a_size + b_size);

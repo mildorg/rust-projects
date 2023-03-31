@@ -28,19 +28,17 @@ pub fn process(str1: &str, str2: &str) -> i32 {
     }
 }
 
-
-
 fn get_next_arr(s: &str) -> Vec<i32> {
     let len = s.len();
 
     let mut next = vec![-1; len];
-    next[1]=0;
+    next[1] = 0;
 
     let mut i = 2;
     let mut cn = 0;
 
     while i < len {
-        if get_str(s,i-1) == get_str(s, cn as usize) {
+        if get_str(s, i - 1) == get_str(s, cn as usize) {
             cn += 1;
             next[i] = cn;
             i += 1;
@@ -55,7 +53,28 @@ fn get_next_arr(s: &str) -> Vec<i32> {
 }
 
 fn get_str(str: &str, i: usize) -> &str {
-    &str[i..i+1]
+    &str[i..i + 1]
 }
 
+#[cfg(test)]
+mod test {
+    use super::process;
 
+    #[test]
+    fn basics() {
+        let str1 = "12abcedfabcedf00";
+        let str2 = "abcedfabcedf";
+        let index = process(str1, str2);
+        assert_eq!(index, 2);
+
+        let str1 = "12abcedfabcedf00";
+        let str2 = "abcedfabcedfe";
+        let index = process(str1, str2);
+        assert_eq!(index, -1);
+
+        let str1 = "abcedfabcedf00";
+        let str2 = "abcedfabcedf";
+        let index = process(str1, str2);
+        assert_eq!(index, 0);
+    }
+}

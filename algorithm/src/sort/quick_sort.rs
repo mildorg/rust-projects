@@ -12,7 +12,7 @@ fn quick_sort(list: &mut Vec<i32>) {
     sort(list, 0, len - 1);
 }
 
-fn sort(list: &mut [i32], l:usize, r: usize) {
+fn sort(list: &mut [i32], l: usize, r: usize) {
     if l >= r {
         return;
     }
@@ -20,7 +20,7 @@ fn sort(list: &mut [i32], l:usize, r: usize) {
     let (less, more) = partition(list, l, r);
 
     if less > 0 {
-        sort(list, 0, less -1);
+        sort(list, 0, less - 1);
     }
 
     sort(list, more + 1, r);
@@ -39,14 +39,14 @@ fn partition(list: &mut [i32], l: usize, r: usize) -> (usize, usize) {
                 list.swap(less, index);
                 less += 1;
                 index += 1;
-            },
+            }
             Ordering::Equal => {
                 index += 1;
-            },
+            }
             Ordering::Greater => {
                 list.swap(more, index);
                 more -= 1;
-            },
+            }
         }
     }
 

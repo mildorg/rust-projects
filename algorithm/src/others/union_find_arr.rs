@@ -1,6 +1,6 @@
 /// 并查集 - 数组实现
 /// 测试链接 : https://www.nowcoder.com/questionTerminal/e7ed657974934a30b2010046536a5372
-use std::io::{self, *};
+use std::io::*;
 
 const MAX_N: usize = 1_000_001;
 
@@ -26,7 +26,7 @@ impl UnionFind {
         }
     }
 
-    pub fn is_same_set(&mut self, a: usize, b: usize) -> bool {
+    pub fn same_set(&mut self, a: usize, b: usize) -> bool {
         self.find_head(a) == self.find_head(b)
     }
 
@@ -75,7 +75,7 @@ impl Default for UnionFind {
 }
 
 pub fn exe() {
-    let stdin = io::stdin();
+    let stdin = stdin();
     let mut uf = UnionFind::new();
 
     for line in stdin.lock().lines() {
@@ -91,12 +91,16 @@ pub fn exe() {
             let c: usize = numbers[2].trim().parse().unwrap_or(0);
 
             match a {
-                1 => if uf.is_same_set(b, c) { println!("Yes") } else { println!("No") },
+                1 => {
+                    if uf.same_set(b, c) {
+                        println!("Yes")
+                    } else {
+                        println!("No")
+                    }
+                }
                 2 => uf.union(b, c),
                 _ => {}
             }
         }
     }
 }
-
-
