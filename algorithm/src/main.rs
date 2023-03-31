@@ -11,5 +11,5 @@ fn main() {
     // sort::bucket_sort::test();
     // sort::radix_sort::test();
     // link::miri::test_miri();
-    count_lands::process()
+    // count_lands::process();
 }
