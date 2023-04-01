@@ -37,6 +37,7 @@ fn infect(are: &mut [Vec<i32>], i: usize, j: usize, n: usize, m: usize) {
 
     // 将当前位置设置为2 标识为已经找到的位置
     are[i][j] = 2;
+
     // 从当前位置向上下左右寻找
     infect(are, i + 1, j, n, m);
     infect(are, i, j + 1, n, m);

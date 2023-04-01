@@ -14,24 +14,23 @@ pub fn process(str1: &str, str2: &str) -> i32 {
         if get_str(str1, i1) == get_str(str2, i2) {
             i1 += 1;
             i2 += 1;
-        } else if i2 == 0 {
+        } else if next[i2] == -1 {
             i1 += 1;
         } else {
             i2 = next[i2] as usize;
         }
     }
 
-    // 如果 i2 先越界
     match i2 == str2_len {
-        true => (i1 - i2) as i32,
+        true => (i1 - i2) as i32, // 如果i2越界
         false => -1,
     }
 }
 
 fn get_next_arr(str: &str) -> Vec<i32> {
     let len = str.len();
-    let mut next = vec![-1; len];
-    next[1] = 0;
+    let mut next = vec![0; len];
+    next[0] = -1;
 
     let mut i = 2;
     let mut cn = 0;
@@ -59,6 +58,7 @@ fn get_str(str: &str, i: usize) -> &str {
 mod test {
     use super::process;
 
+    // noinspection All
     #[test]
     fn basics() {
         let str1 = "12abcedfabcedf00";
