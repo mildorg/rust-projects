@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/algorithm/Cargo.toml" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e99ad12d-d247-499f-97c8-4fc0eb1370ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/algorithm/src/leetcode/count_time.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algorithm/src/leetcode/link/remove_elements.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algorithm/src/others/fib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/rust-projects.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rust-projects.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/.idea/algorithm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm/.idea/algorithm.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/src/leetcode/link/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm/src/leetcode/link/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/src/leetcode/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm/src/leetcode/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/src/others/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm/src/others/mod.rs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="vtx0sk51" />
+  </component>
+  <component name="ProjectId" id="2PbY83v7491U4YJJ1o8750rqDX0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/code/rust-projects/algorithm/Cargo.toml&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\code\\rust-projects\\mild-ui\\mild-style\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e99ad12d-d247-499f-97c8-4fc0eb1370ee" name="Changes" comment="" />
+      <created>1683727085993</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1683727085993</updated>
+      <workItem from="1683727087304" duration="93000" />
+      <workItem from="1683727186022" duration="31000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
