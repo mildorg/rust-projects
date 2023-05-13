@@ -12,4 +12,10 @@ fn main() {
     // sort::radix_sort::test();
     // link::miri::test_miri();
     // count_lands::process();
+
+    for i in 0..15 {
+        println!("{}", 4_i32.pow(i) % 3);
+    }
+
+    // println!("{}", 8 % 4);
 }
