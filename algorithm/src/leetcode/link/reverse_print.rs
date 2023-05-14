@@ -22,7 +22,7 @@ impl Solution {
     }
 }
 
-struct Solution2{}
+struct Solution2 {}
 
 impl Solution2 {
     pub fn reverse_print(head: Option<Box<ListNode>>) -> Vec<i32> {

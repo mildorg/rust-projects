@@ -7,21 +7,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a82767c0-46de-48e5-8972-a96f9d5bdafe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/leetcode/count_time.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/leetcode/link/is_palindrome.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/leetcode/link/remove_elements.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/leetcode/link/single_link.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/others/fib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/rust-projects.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/rust-projects.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/algorithm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/algorithm.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/leetcode/link/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leetcode/link/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/leetcode/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leetcode/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/others/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/others/mod.rs" afterDir="false" />
+    <list default="true" id="a82767c0-46de-48e5-8972-a96f9d5bdafe" name="Changes" comment="Add some reverse algorithm">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/leetcode/link/merge_two_lists.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leetcode/link/merge_two_lists.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/leetcode/link/reverse_print.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leetcode/link/reverse_print.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +25,10 @@
       </list>
     </option>
   </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myFormatOnlyChangedLines" value="true" />
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -44,6 +37,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -68,7 +64,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;language.rust.cargo.check&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -97,11 +93,43 @@
       <workItem from="1683807981887" duration="1236000" />
       <workItem from="1683810353931" duration="1061000" />
       <workItem from="1683849126015" duration="2180000" />
-      <workItem from="1683976758442" duration="7629000" />
+      <workItem from="1683976758442" duration="7743000" />
+      <workItem from="1684033023545" duration="4741000" />
+      <workItem from="1684077038444" duration="1824000" />
     </task>
+    <task id="LOCAL-00001" summary="Add some reverse algorithm">
+      <created>1683985418709</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1683985418709</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add some reverse algorithm">
+      <created>1683985431006</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1683985431006</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add some reverse algorithm" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add some reverse algorithm" />
   </component>
 </project>
