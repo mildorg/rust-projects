@@ -3,6 +3,7 @@
 
 #![allow(dead_code)]
 
+
 // Definition for singly-linked list.
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
@@ -24,7 +25,7 @@ impl Solution {
         mut list1: Option<Box<ListNode>>,
         mut list2: Option<Box<ListNode>>,
     ) -> Option<Box<ListNode>> {
-        let mut head = Box::new(ListNode::new(i32::MIN)); // 申请一个伪头结点
+        let mut head = ListNode::new(i32::MIN);
         let mut cur = &mut head;
 
         while let (Some(node1), Some(node2)) = (list1.as_ref(), list2.as_ref()) {
@@ -32,7 +33,7 @@ impl Solution {
 
             cur.next = small.take();
             cur = cur.next.as_mut().unwrap();
-            *small = cur.next.take();
+            *small = cur.next.take()
         }
 
         cur.next = list1.or(list2);

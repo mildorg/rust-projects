@@ -7,10 +7,11 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a82767c0-46de-48e5-8972-a96f9d5bdafe" name="Changes" comment="Add some reverse algorithm">
+    <list default="true" id="a82767c0-46de-48e5-8972-a96f9d5bdafe" name="Changes" comment="update merge_two_lists">
+      <change afterPath="$PROJECT_DIR$/src/leetcode/recursive/hanota.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/leetcode/link/merge_two_lists.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leetcode/link/merge_two_lists.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/leetcode/link/reverse_print.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leetcode/link/reverse_print.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/leetcode/recursive/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leetcode/recursive/mod.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +65,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -96,6 +97,9 @@
       <workItem from="1683976758442" duration="7743000" />
       <workItem from="1684033023545" duration="4741000" />
       <workItem from="1684077038444" duration="1824000" />
+      <workItem from="1684078911827" duration="2335000" />
+      <workItem from="1684154161863" duration="41000" />
+      <workItem from="1684154545924" duration="3402000" />
     </task>
     <task id="LOCAL-00001" summary="Add some reverse algorithm">
       <created>1683985418709</created>
@@ -111,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683985431006</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update merge_two_lists">
+      <created>1684078932813</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1684078932813</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +141,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add some reverse algorithm" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add some reverse algorithm" />
+    <MESSAGE value="update merge_two_lists" />
+    <option name="LAST_COMMIT_MESSAGE" value="update merge_two_lists" />
   </component>
 </project>
